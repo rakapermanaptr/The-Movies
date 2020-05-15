@@ -15,4 +15,6 @@ interface ITheMoviesRepository {
 
     fun getPopularActionMovies(): LiveData<Resource<List<Movie>>>
 
+    fun getNowPlayingMovies(): LiveData<Resource<List<Movie>>>
+
 }

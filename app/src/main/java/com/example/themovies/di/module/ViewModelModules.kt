@@ -5,12 +5,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.themovies.di.ViewModelFactory
 import com.example.themovies.di.ViewModelKey
 import com.example.themovies.presentation.discover.DiscoverViewModel
+import com.example.themovies.presentation.nowplaying.NowPlayingViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
 abstract class ViewModelModules {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NowPlayingViewModel::class)
+    abstract fun bindNowPlayingViewModel(nowPlayingViewModel: NowPlayingViewModel): ViewModel
 
     @Binds
     @IntoMap

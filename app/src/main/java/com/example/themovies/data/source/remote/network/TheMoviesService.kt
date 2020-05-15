@@ -26,4 +26,7 @@ interface TheMoviesService {
         @Query("with_genres") genreId: Int,
         @Query("primary_release_year") releaseYear: Int
     ): Deferred<BaseResponse<Movie>>
+
+    @GET("movie/now_playing")
+    fun getNowPlayingMoviesAsync(): Deferred<BaseResponse<Movie>>
 }
