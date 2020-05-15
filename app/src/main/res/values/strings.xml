@@ -5,7 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="discover">Discover</string>
     <string name="most_popular_tv_shows">Most Popular TV Shows</string>
-    <string name="most_popular_drama">Most Popular Drama This Year</string>
+    <string name="most_popular_drama">Most Popular Drama</string>
     <string name="most_popular_action">Most Popular Action</string>
     <string name="poster">poster</string>
 </resources>
