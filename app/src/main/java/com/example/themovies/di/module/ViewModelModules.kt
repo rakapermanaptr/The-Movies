@@ -6,12 +6,18 @@ import com.example.themovies.di.ViewModelFactory
 import com.example.themovies.di.ViewModelKey
 import com.example.themovies.presentation.discover.DiscoverViewModel
 import com.example.themovies.presentation.nowplaying.NowPlayingViewModel
+import com.example.themovies.presentation.upcoming.UpcomingViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
 abstract class ViewModelModules {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UpcomingViewModel::class)
+    abstract fun bindUpcomingViewModel(upcomingViewModel: UpcomingViewModel): ViewModel
 
     @Binds
     @IntoMap

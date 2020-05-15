@@ -29,4 +29,7 @@ interface TheMoviesService {
 
     @GET("movie/now_playing")
     fun getNowPlayingMoviesAsync(): Deferred<BaseResponse<Movie>>
+
+    @GET("movie/upcoming")
+    fun getUpcomingMoviesAsync(): Deferred<BaseResponse<Movie>>
 }

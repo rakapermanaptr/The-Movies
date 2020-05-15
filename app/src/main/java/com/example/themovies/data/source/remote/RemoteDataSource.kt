@@ -97,4 +97,20 @@ class RemoteDataSource(private val service: TheMoviesService) {
         return resultNowPlayingMovies
     }
 
+    fun getUpcomingMovies(): LiveData<Resource<List<Movie>>> {
+        val resultUpcomingMovies = MutableLiveData<Resource<List<Movie>>>()
+        coroutineScope.launch {
+            resultUpcomingMovies.value = Resource.loading(null)
+            try {
+                val upcomingMovies = service.getUpcomingMoviesAsync().await()
+                resultUpcomingMovies.value = Resource.success(upcomingMovies.data)
+            } catch (e: Exception) {
+                resultUpcomingMovies.value = Resource.error(e.localizedMessage, null)
+                Log.e("RemoteDataSource", "getUpcomingMovies Error : ${e.localizedMessage}")
+            }
+        }
+
+        return resultUpcomingMovies
+    }
+
 }

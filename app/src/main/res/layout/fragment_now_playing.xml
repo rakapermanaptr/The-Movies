@@ -13,7 +13,7 @@
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/item_now_playing" />
+        tools:listitem="@layout/item_poster_grid" />
 
     <ProgressBar
         android:layout_width="wrap_content"

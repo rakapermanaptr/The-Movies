@@ -17,4 +17,6 @@ interface ITheMoviesRepository {
 
     fun getNowPlayingMovies(): LiveData<Resource<List<Movie>>>
 
+    fun getUpcomingMovies(): LiveData<Resource<List<Movie>>>
+
 }

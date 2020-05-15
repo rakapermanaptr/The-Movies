@@ -1,4 +1,4 @@
-package com.example.themovies.presentation.nowplaying
+package com.example.themovies.presentation.upcoming
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,12 +11,12 @@ import com.example.themovies.domain.entities.Movie
 import com.example.themovies.utils.BASE_IMAGE_URL
 import kotlinx.android.synthetic.main.item_poster_grid.view.*
 
-class NowPlayingAdapter : RecyclerView.Adapter<NowPlayingAdapter.ViewHolder>() {
+class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.ViewHolder>() {
 
-    private val nowPlayingList = mutableListOf<Movie>()
+    private val upcomingList = mutableListOf<Movie>()
 
     fun addItems(movies: List<Movie>) {
-        nowPlayingList.addAll(movies)
+        upcomingList.addAll(movies)
         notifyDataSetChanged()
     }
 
@@ -26,10 +26,10 @@ class NowPlayingAdapter : RecyclerView.Adapter<NowPlayingAdapter.ViewHolder>() {
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = nowPlayingList.size
+    override fun getItemCount(): Int = upcomingList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movie = nowPlayingList[position]
+        val movie = upcomingList[position]
         holder.bind(movie)
     }
 

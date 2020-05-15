@@ -25,5 +25,8 @@ class TheMoviesRepository @Inject constructor(private val remoteDataSource: Remo
     override fun getNowPlayingMovies(): LiveData<Resource<List<Movie>>> =
         remoteDataSource.getNowPlayingMovies()
 
+    override fun getUpcomingMovies(): LiveData<Resource<List<Movie>>> =
+        remoteDataSource.getUpcomingMovies()
+
 
 }
