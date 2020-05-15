@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.example.themovies.R
@@ -24,9 +25,12 @@ class BannerAdapter(private val context: Context, private var popularMovies: Lis
             val movie: Movie = popularMovies[position]
             val view = LayoutInflater.from(context).inflate(R.layout.item_banner, null)
             val imageBanner = view.findViewById<ImageView>(R.id.img_backdrop)
+            val title = view.findViewById<TextView>(R.id.tv_title_banner)
+
             Glide.with(context)
                 .load(BASE_IMAGE_URL + movie.backdropPath)
                 .into(imageBanner)
+            title.text = movie.title
 
             container.addView(view)
             return view

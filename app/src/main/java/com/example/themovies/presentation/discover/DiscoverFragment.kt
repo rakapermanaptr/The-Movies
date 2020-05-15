@@ -35,15 +35,10 @@ class DiscoverFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupToolbar()
 
         viewModel = ViewModelProvider(this, factory)[DiscoverViewModel::class.java]
         observeViewModel()
 
-    }
-
-    private fun setupToolbar() {
-        tv_title_toolbar.text = getString(R.string.discover)
     }
 
     private fun observeViewModel() {
