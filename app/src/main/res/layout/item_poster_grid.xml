@@ -36,7 +36,7 @@
         tools:text="The Flash" />
 
     <TextView
-        android:id="@+id/tv_voteAverage_poster"
+        android:id="@+id/tv_releaseDate_poster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title_poster"

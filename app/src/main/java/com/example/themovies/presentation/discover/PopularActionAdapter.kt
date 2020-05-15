@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.themovies.R
 import com.example.themovies.domain.entities.Movie
-import com.example.themovies.domain.entities.TvShow
 import com.example.themovies.utils.BASE_IMAGE_URL
+import com.example.themovies.utils.releaseDate
 import kotlinx.android.synthetic.main.item_poster.view.*
 
 class PopularActionAdapter : RecyclerView.Adapter<PopularActionAdapter.ViewHolder>() {
@@ -42,7 +42,8 @@ class PopularActionAdapter : RecyclerView.Adapter<PopularActionAdapter.ViewHolde
                 .into(itemView.img_poster)
 
             itemView.tv_title_poster.text = movie.title
-            itemView.tv_voteAverage_poster.text = movie.voteAverage.toString()
+            itemView.tv_releaseDate_poster.text = releaseDate(movie.releaseDate!!)
+
 
             Log.d("PopularActionAdapter", "title: ${movie.title}")
         }

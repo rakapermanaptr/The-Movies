@@ -41,7 +41,7 @@ class NowPlayingAdapter : RecyclerView.Adapter<NowPlayingAdapter.ViewHolder>() {
                 .into(itemView.img_poster)
 
             itemView.tv_title_poster.text = movie.title
-            itemView.tv_voteAverage_poster.text = movie.voteAverage.toString()
+            itemView.tv_releaseDate_poster.text = movie.voteAverage.toString()
 
             Log.d("NowPlayingAdapter", "title: ${movie.title}")
         }

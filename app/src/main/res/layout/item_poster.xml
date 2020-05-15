@@ -34,12 +34,12 @@
         tools:text="The Flash" />
 
     <TextView
-        android:id="@+id/tv_voteAverage_poster"
+        android:id="@+id/tv_releaseDate_poster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/google_sans_medium"
-        tools:text="7.2" />
+        tools:text="23 Mar 2020" />
 
 </LinearLayout>

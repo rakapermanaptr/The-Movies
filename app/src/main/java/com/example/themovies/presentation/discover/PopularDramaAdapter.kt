@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.themovies.R
 import com.example.themovies.domain.entities.TvShow
 import com.example.themovies.utils.BASE_IMAGE_URL
+import com.example.themovies.utils.releaseDate
 import kotlinx.android.synthetic.main.item_poster.view.*
 
 class PopularDramaAdapter : RecyclerView.Adapter<PopularDramaAdapter.ViewHolder>() {
@@ -40,7 +41,7 @@ class PopularDramaAdapter : RecyclerView.Adapter<PopularDramaAdapter.ViewHolder>
                 .into(itemView.img_poster)
 
             itemView.tv_title_poster.text = tvShow.name
-            itemView.tv_voteAverage_poster.text = tvShow.voteAverage.toString()
+            itemView.tv_releaseDate_poster.text = releaseDate(tvShow.firstAirDate)
         }
     }
 
