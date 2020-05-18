@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.themovies.R
 import com.example.themovies.domain.entities.Movie
 import com.example.themovies.domain.entities.TvShow
-import com.example.themovies.utils.hide
-import com.example.themovies.utils.show
+import com.example.themovies.utils.*
 import com.example.themovies.utils.vo.Status
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.fragment_discover.*
 import javax.inject.Inject
 
@@ -27,6 +25,10 @@ class DiscoverFragment : Fragment() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: DiscoverViewModel
+
+    private val popularTvShowsAdapter = PopularTvShowsAdapter { tvShow ->
+        NavigationUtils.navigateToDetailActivity(requireContext(), tvShow.id, TV_SHOW)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -100,9 +102,7 @@ class DiscoverFragment : Fragment() {
     private fun showPopularTvShows(tvShows: List<TvShow>?) {
         tv_header_mostPopularTvShows.text = getString(R.string.most_popular_tv_shows)
 
-        val popularTvShowsAdapter = PopularTvShowsAdapter()
         popularTvShowsAdapter.addItems(tvShows!!)
-
         rv_popularTvShows.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             adapter = popularTvShowsAdapter

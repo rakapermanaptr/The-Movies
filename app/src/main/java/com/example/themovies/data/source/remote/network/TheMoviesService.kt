@@ -1,10 +1,9 @@
 package com.example.themovies.data.source.remote.network
 
-import com.example.themovies.domain.entities.BaseResponse
-import com.example.themovies.domain.entities.Movie
-import com.example.themovies.domain.entities.TvShow
+import com.example.themovies.domain.entities.*
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TheMoviesService {
@@ -32,4 +31,13 @@ interface TheMoviesService {
 
     @GET("movie/upcoming")
     fun getUpcomingMoviesAsync(): Deferred<BaseResponse<Movie>>
+
+    @GET("tv/{tv_id}")
+    fun getTvShowDetailAsync(@Path("tv_id") tvShowId: Int): Deferred<TvShowDetail>
+
+    @GET("tv/{tv_id}/credits")
+    fun getTvShowCasterAsync(@Path("tv_id") tvShowId: Int): Deferred<CasterResponse>
+
+    @GET("tv/{tv_id}/similar")
+    fun getSimilarTvShowsAsync(@Path("tv_id") tvShowId: Int): Deferred<BaseResponse<TvShow>>
 }

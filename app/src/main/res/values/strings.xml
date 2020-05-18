@@ -8,4 +8,9 @@
     <string name="most_popular_drama">Most Popular Drama</string>
     <string name="most_popular_action">Most Popular Action</string>
     <string name="poster">poster</string>
+    <string name="content_desc_image_backdrop">image_backdrop</string>
+    <string name="example_overview">A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground ”fight clubs” forming in every town, until an eccentric gets in the way and ignites …</string>
+    <string name="read_less">READ LESS</string>
+    <string name="read_more">READ MORE</string>
+    <string name="episode">Episode</string>
 </resources>

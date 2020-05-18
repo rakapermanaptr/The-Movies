@@ -1,4 +1,4 @@
-package com.example.themovies.presentation.discover
+package com.example.themovies.presentation.detail
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.themovies.R
+import com.example.themovies.domain.entities.Cast
 import com.example.themovies.domain.entities.TvShow
 import com.example.themovies.utils.BASE_IMAGE_URL
-import com.example.themovies.utils.releaseDate
-import kotlinx.android.synthetic.main.item_poster.view.*
+import kotlinx.android.synthetic.main.item_poster_detail.view.*
 
-class PopularTvShowsAdapter(private val onItemClick: (tvShow: TvShow) -> Unit) :
-    RecyclerView.Adapter<PopularTvShowsAdapter.ViewHolder>() {
+class SimilarTvShowsAdapter(private val onItemClick: (tvShow: TvShow) -> Unit) :
+    RecyclerView.Adapter<SimilarTvShowsAdapter.ViewHolder>() {
 
     private val tvShowList = mutableListOf<TvShow>()
 
@@ -22,8 +22,7 @@ class PopularTvShowsAdapter(private val onItemClick: (tvShow: TvShow) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_poster, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_poster_detail, parent, false)
         return ViewHolder(view)
     }
 
@@ -36,14 +35,10 @@ class PopularTvShowsAdapter(private val onItemClick: (tvShow: TvShow) -> Unit) :
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bind(tvShow: TvShow) {
             Glide.with(itemView)
                 .load(BASE_IMAGE_URL + tvShow.posterPath)
-                .into(itemView.img_poster)
-
-            itemView.tv_title_poster.text = tvShow.name
-            itemView.tv_releaseDate_poster.text = releaseDate(tvShow.firstAirDate)
+                .into(itemView.img_poster_detail)
         }
     }
 

@@ -2,8 +2,10 @@ package com.example.themovies.data
 
 import androidx.lifecycle.LiveData
 import com.example.themovies.data.source.remote.RemoteDataSource
+import com.example.themovies.domain.entities.Cast
 import com.example.themovies.domain.entities.Movie
 import com.example.themovies.domain.entities.TvShow
+import com.example.themovies.domain.entities.TvShowDetail
 import com.example.themovies.utils.vo.Resource
 import javax.inject.Inject
 
@@ -28,5 +30,13 @@ class TheMoviesRepository @Inject constructor(private val remoteDataSource: Remo
     override fun getUpcomingMovies(): LiveData<Resource<List<Movie>>> =
         remoteDataSource.getUpcomingMovies()
 
+    override fun getTvShowDetail(tvShowId: Int): LiveData<Resource<TvShowDetail>> =
+        remoteDataSource.getTvShowDetail(tvShowId)
+
+    override fun getTvShowCaster(tvShowId: Int): LiveData<Resource<List<Cast>>> =
+        remoteDataSource.getTvShowCaster(tvShowId)
+
+    override fun getSimilarTvShows(tvShowId: Int): LiveData<Resource<List<TvShow>>> =
+        remoteDataSource.getSimilarTvShows(tvShowId)
 
 }

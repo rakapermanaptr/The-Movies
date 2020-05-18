@@ -1,6 +1,7 @@
 package com.example.themovies.di
 
 import com.example.themovies.TheMoviesApplication
+import com.example.themovies.di.module.ActivityBuilderModule
 import com.example.themovies.di.module.AppModule
 import com.example.themovies.di.module.FragmentBuildersModules
 import com.example.themovies.di.module.ViewModelModules
@@ -15,7 +16,8 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         AppModule::class,
         ViewModelModules::class,
-        FragmentBuildersModules::class
+        FragmentBuildersModules::class,
+        ActivityBuilderModule::class
     ]
 )
 interface AppComponent : AndroidInjector<TheMoviesApplication>
