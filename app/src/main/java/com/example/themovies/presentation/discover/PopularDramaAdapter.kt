@@ -8,10 +8,10 @@ import com.bumptech.glide.Glide
 import com.example.themovies.R
 import com.example.themovies.domain.entities.TvShow
 import com.example.themovies.utils.BASE_IMAGE_URL
-import com.example.themovies.utils.releaseDate
 import kotlinx.android.synthetic.main.item_poster.view.*
 
-class PopularDramaAdapter : RecyclerView.Adapter<PopularDramaAdapter.ViewHolder>() {
+class PopularDramaAdapter(private val onItemClick: (tvShow: TvShow) -> Unit) :
+    RecyclerView.Adapter<PopularDramaAdapter.ViewHolder>() {
 
     private val tvShowList = mutableListOf<TvShow>()
 
@@ -31,6 +31,7 @@ class PopularDramaAdapter : RecyclerView.Adapter<PopularDramaAdapter.ViewHolder>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tvShow = tvShowList[position]
         holder.bind(tvShow)
+        holder.itemView.setOnClickListener { onItemClick(tvShow) }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

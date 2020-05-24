@@ -30,6 +30,14 @@ class DiscoverFragment : Fragment() {
         NavigationUtils.navigateToDetailActivity(requireContext(), tvShow.id, TV_SHOW)
     }
 
+    private val popularDramaAdapter = PopularDramaAdapter { tvShow ->
+        NavigationUtils.navigateToDetailActivity(requireContext(), tvShow.id, TV_SHOW)
+    }
+
+    private val popularActionAdapter = PopularActionAdapter { movie ->
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id, MOVIE)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
@@ -112,9 +120,7 @@ class DiscoverFragment : Fragment() {
     private fun showPopularDrama(popularDramaList: List<TvShow>?) {
         tv_header_mostPopularDrama.text = getString(R.string.most_popular_drama)
 
-        val popularDramaAdapter = PopularDramaAdapter()
         popularDramaAdapter.addItems(popularDramaList!!)
-
         rv_popularDrama.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             adapter = popularDramaAdapter
@@ -124,9 +130,7 @@ class DiscoverFragment : Fragment() {
     private fun showPopularAction(popularActionList: List<Movie>?) {
         tv_header_mostPopularAction.text = getString(R.string.most_popular_action)
 
-        val popularActionAdapter = PopularActionAdapter()
         popularActionAdapter.addItems(popularActionList!!)
-
         rv_popularAction.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             adapter = popularActionAdapter

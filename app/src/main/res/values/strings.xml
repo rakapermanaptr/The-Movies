@@ -13,4 +13,5 @@
     <string name="read_less">READ LESS</string>
     <string name="read_more">READ MORE</string>
     <string name="episode">Episode</string>
+    <string name="duration">Duration</string>
 </resources>

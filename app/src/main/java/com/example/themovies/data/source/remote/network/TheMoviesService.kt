@@ -35,9 +35,18 @@ interface TheMoviesService {
     @GET("tv/{tv_id}")
     fun getTvShowDetailAsync(@Path("tv_id") tvShowId: Int): Deferred<TvShowDetail>
 
+    @GET("movie/{movie_id}")
+    fun getMovieDetailAsync(@Path("movie_id") movieId: Int): Deferred<MovieDetail>
+
     @GET("tv/{tv_id}/credits")
     fun getTvShowCasterAsync(@Path("tv_id") tvShowId: Int): Deferred<CasterResponse>
 
+    @GET("movie/{movie_id}/credits")
+    fun getMovieCasterAsync(@Path("movie_id") tvShowId: Int): Deferred<CasterResponse>
+
     @GET("tv/{tv_id}/similar")
     fun getSimilarTvShowsAsync(@Path("tv_id") tvShowId: Int): Deferred<BaseResponse<TvShow>>
+
+    @GET("movie/{movie_id}/similar")
+    fun getSimilarMoviesAsync(@Path("movie_id") tvShowId: Int): Deferred<BaseResponse<Movie>>
 }

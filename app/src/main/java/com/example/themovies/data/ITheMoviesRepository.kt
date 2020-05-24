@@ -1,10 +1,7 @@
 package com.example.themovies.data
 
 import androidx.lifecycle.LiveData
-import com.example.themovies.domain.entities.Cast
-import com.example.themovies.domain.entities.Movie
-import com.example.themovies.domain.entities.TvShow
-import com.example.themovies.domain.entities.TvShowDetail
+import com.example.themovies.domain.entities.*
 import com.example.themovies.utils.vo.Resource
 
 interface ITheMoviesRepository {
@@ -23,8 +20,14 @@ interface ITheMoviesRepository {
 
     fun getTvShowDetail(tvShowId: Int): LiveData<Resource<TvShowDetail>>
 
+    fun getMovieDetail(movieId: Int): LiveData<Resource<MovieDetail>>
+
     fun getTvShowCaster(tvShowId: Int): LiveData<Resource<List<Cast>>>
 
+    fun getMovieCaster(movieId: Int): LiveData<Resource<List<Cast>>>
+
     fun getSimilarTvShows(tvShowId: Int): LiveData<Resource<List<TvShow>>>
+
+    fun getSimilarMovies(movieId: Int): LiveData<Resource<List<Movie>>>
 
 }

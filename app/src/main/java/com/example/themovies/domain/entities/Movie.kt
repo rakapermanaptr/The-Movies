@@ -11,7 +11,7 @@ data class Movie(
     @Json(name = "genre_ids")
     val genreIds: List<Int>?,
     @Json(name = "id")
-    val id: Int?,
+    val id: Int,
     @Json(name = "original_language")
     val originalLanguage: String?,
     @Json(name = "original_title")
@@ -25,7 +25,7 @@ data class Movie(
     @Json(name = "release_date")
     val releaseDate: String?,
     @Json(name = "title")
-    val title: String?,
+    val title: String,
     @Json(name = "video")
     val video: Boolean?,
     @Json(name = "vote_average")

@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.themovies.R
-import com.example.themovies.domain.entities.Cast
-import com.example.themovies.domain.entities.TvShow
-import com.example.themovies.domain.entities.TvShowDetail
+import com.example.themovies.domain.entities.*
 import com.example.themovies.utils.*
 import com.example.themovies.utils.vo.Status
 import dagger.android.AndroidInjection
@@ -32,6 +30,10 @@ class DetailActivity : AppCompatActivity() {
 
     private val similarTvShowsAdapter = SimilarTvShowsAdapter { tvShow ->
         showToast(tvShow.name)
+    }
+
+    private val similarMoviesAdapter = SimilarMoviesAdapter { movie ->
+        showToast(movie.title)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,6 +88,41 @@ class DetailActivity : AppCompatActivity() {
                     }
                 })
             }
+            MOVIE -> {
+                viewModel.setSelectedMovie(id)
+                viewModel.movieDetail.observe(this, Observer {
+                    when (it.status) {
+                        Status.LOADING -> showLoading()
+                        Status.SUCCESS -> {
+                            hideLoading()
+                            showMovieDetail(it.data)
+                        }
+                        Status.ERROR -> hideLoading()
+                    }
+                })
+
+                viewModel.movieCaster.observe(this, Observer {
+                    when (it.status) {
+                        Status.LOADING -> showLoading()
+                        Status.SUCCESS -> {
+                            hideLoading()
+                            showMovieCaster(it.data)
+                        }
+                        Status.ERROR -> hideLoading()
+                    }
+                })
+
+                viewModel.similarMovies.observe(this, Observer {
+                    when (it.status) {
+                        Status.LOADING -> showLoading()
+                        Status.SUCCESS -> {
+                            hideLoading()
+                            showSimilarMovies(it.data)
+                        }
+                        Status.ERROR -> hideLoading()
+                    }
+                })
+            }
         }
     }
 
@@ -127,7 +164,31 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
+    private fun showMovieDetail(movieDetail: MovieDetail?) {
+        Glide.with(this)
+            .load(BASE_IMAGE_URL + movieDetail?.backdropPath)
+            .into(img_backdrop_detail)
+
+        tv_title.text = movieDetail?.title
+        tv_voteAverage.text = movieDetail?.voteAverage.toString()
+        tv_overview.text = movieDetail?.overview
+        tv_releaseDate.text = releaseDate(movieDetail!!.releaseDate)
+        tv_status.text = movieDetail.status
+
+        tv_header_duration.text = getString(R.string.duration)
+        tv_duration.text = "${movieDetail.runtime} min"
+    }
+
     private fun showTvShowCaster(casterList: List<Cast>?) {
+        casterAdapter.addItems(casterList!!)
+
+        rv_caster.apply {
+            layoutManager = LinearLayoutManager(this@DetailActivity, RecyclerView.HORIZONTAL, false)
+            adapter = casterAdapter
+        }
+    }
+
+    private fun showMovieCaster(casterList: List<Cast>?) {
         casterAdapter.addItems(casterList!!)
 
         rv_caster.apply {
@@ -142,6 +203,15 @@ class DetailActivity : AppCompatActivity() {
         rv_similarMovies.apply {
             layoutManager = LinearLayoutManager(this@DetailActivity, RecyclerView.HORIZONTAL, false)
             adapter = similarTvShowsAdapter
+        }
+    }
+
+    private fun showSimilarMovies(movieList: List<Movie>?) {
+        similarMoviesAdapter.addItems(movieList!!)
+
+        rv_similarMovies.apply {
+            layoutManager = LinearLayoutManager(this@DetailActivity, RecyclerView.HORIZONTAL, false)
+            adapter = similarMoviesAdapter
         }
     }
 
