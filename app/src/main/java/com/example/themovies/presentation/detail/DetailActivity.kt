@@ -104,6 +104,11 @@ class DetailActivity : AppCompatActivity() {
                 layout_more_info.hide()
             }
         }
+
+        // do some action and condition to overview
+        tv_overview.setOnClickListener {
+            if (tv_overview.maxLines == 5) tv_overview.maxLines = 99 else tv_overview.maxLines = 5
+        }
     }
 
     private fun showTvShowDetail(tvShowDetail: TvShowDetail?) {
