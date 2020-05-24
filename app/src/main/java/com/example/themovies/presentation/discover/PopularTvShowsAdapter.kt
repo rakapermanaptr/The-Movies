@@ -43,7 +43,7 @@ class PopularTvShowsAdapter(private val onItemClick: (tvShow: TvShow) -> Unit) :
                 .into(itemView.img_poster)
 
             itemView.tv_title_poster.text = tvShow.name
-            itemView.tv_releaseDate_poster.text = releaseDate(tvShow.firstAirDate)
+            itemView.tv_voteAverage_poster.text = tvShow.voteAverage.toString()
         }
     }
 

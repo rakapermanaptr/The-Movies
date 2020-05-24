@@ -9,11 +9,12 @@ import com.bumptech.glide.Glide
 import com.example.themovies.R
 import com.example.themovies.domain.entities.Movie
 import com.example.themovies.utils.BASE_IMAGE_URL
+import com.example.themovies.utils.releaseDate
 import kotlinx.android.synthetic.main.item_poster_grid.view.*
 
 class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.ViewHolder>() {
 
-    private val upcomingList = mutableListOf<Movie>()
+    private val upcomingList  = mutableListOf<Movie>()
 
     fun addItems(movies: List<Movie>) {
         upcomingList.addAll(movies)
@@ -41,7 +42,7 @@ class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.ViewHolder>() {
                 .into(itemView.img_poster)
 
             itemView.tv_title_poster.text = movie.title
-            itemView.tv_releaseDate_poster.text = movie.voteAverage.toString()
+            itemView.tv_voteAverage_poster.text = releaseDate(movie.releaseDate!!)
 
             Log.d("NowPlayingAdapter", "title: ${movie.title}")
         }

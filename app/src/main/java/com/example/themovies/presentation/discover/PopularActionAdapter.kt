@@ -42,10 +42,7 @@ class PopularActionAdapter : RecyclerView.Adapter<PopularActionAdapter.ViewHolde
                 .into(itemView.img_poster)
 
             itemView.tv_title_poster.text = movie.title
-            itemView.tv_releaseDate_poster.text = releaseDate(movie.releaseDate!!)
-
-
-            Log.d("PopularActionAdapter", "title: ${movie.title}")
+            itemView.tv_voteAverage_poster.text = movie.voteAverage.toString()
         }
     }
 
