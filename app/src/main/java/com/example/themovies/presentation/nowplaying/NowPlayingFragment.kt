@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 import com.example.themovies.R
 import com.example.themovies.domain.entities.Movie
+import com.example.themovies.utils.MOVIE
+import com.example.themovies.utils.NavigationUtils
 import com.example.themovies.utils.hide
 import com.example.themovies.utils.show
 import com.example.themovies.utils.vo.Status
@@ -19,14 +21,15 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_now_playing.*
 import javax.inject.Inject
 
-/**
- * A simple [Fragment] subclass.
- */
 class NowPlayingFragment : Fragment() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: NowPlayingViewModel
+
+    private val nowPlayingAdapter = NowPlayingAdapter { movie ->
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id, MOVIE)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,9 +58,7 @@ class NowPlayingFragment : Fragment() {
     }
 
     private fun showNowPlaying(nowPlayingList: List<Movie>?) {
-        val nowPlayingAdapter = NowPlayingAdapter()
         nowPlayingAdapter.addItems(nowPlayingList!!)
-
         rv_nowPlaying.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = nowPlayingAdapter

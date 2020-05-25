@@ -12,9 +12,10 @@ import com.example.themovies.utils.BASE_IMAGE_URL
 import com.example.themovies.utils.releaseDate
 import kotlinx.android.synthetic.main.item_poster_grid.view.*
 
-class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.ViewHolder>() {
+class UpcomingAdapter(private val onItemClick: (movie: Movie) -> Unit) :
+    RecyclerView.Adapter<UpcomingAdapter.ViewHolder>() {
 
-    private val upcomingList  = mutableListOf<Movie>()
+    private val upcomingList = mutableListOf<Movie>()
 
     fun addItems(movies: List<Movie>) {
         upcomingList.addAll(movies)
@@ -32,6 +33,7 @@ class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = upcomingList[position]
         holder.bind(movie)
+        holder.itemView.setOnClickListener { onItemClick(movie) }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

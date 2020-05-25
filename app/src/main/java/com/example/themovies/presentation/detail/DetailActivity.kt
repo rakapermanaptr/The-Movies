@@ -29,11 +29,13 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private val similarTvShowsAdapter = SimilarTvShowsAdapter { tvShow ->
-        showToast(tvShow.name)
+        NavigationUtils.navigateToDetailActivity(this, tvShow.id, TV_SHOW)
+        finish()
     }
 
     private val similarMoviesAdapter = SimilarMoviesAdapter { movie ->
-        showToast(movie.title)
+        NavigationUtils.navigateToDetailActivity(this, movie.id, MOVIE)
+        finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

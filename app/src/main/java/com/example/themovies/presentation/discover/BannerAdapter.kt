@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.example.themovies.R
 import com.example.themovies.domain.entities.Movie
 import com.example.themovies.utils.BASE_IMAGE_URL
+import com.example.themovies.utils.MOVIE
+import com.example.themovies.utils.NavigationUtils
 
 class BannerAdapter(private val context: Context, private var popularMovies: List<Movie>) :
     PagerAdapter() {
@@ -31,6 +33,10 @@ class BannerAdapter(private val context: Context, private var popularMovies: Lis
                 .load(BASE_IMAGE_URL + movie.backdropPath)
                 .into(imageBanner)
             title.text = movie.title
+
+            view.setOnClickListener {
+                NavigationUtils.navigateToDetailActivity(context, movie.id, MOVIE)
+            }
 
             container.addView(view)
             return view

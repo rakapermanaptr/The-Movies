@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 import com.example.themovies.R
 import com.example.themovies.domain.entities.Movie
+import com.example.themovies.utils.MOVIE
+import com.example.themovies.utils.NavigationUtils
 import com.example.themovies.utils.hide
 import com.example.themovies.utils.show
 import com.example.themovies.utils.vo.Status
@@ -27,6 +29,10 @@ class UpcomingFragment : Fragment() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: UpcomingViewModel
+
+    private val upcomingAdapter = UpcomingAdapter { movie ->
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id, MOVIE)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,9 +61,7 @@ class UpcomingFragment : Fragment() {
     }
 
     private fun showUpcoming(upcomingList: List<Movie>?) {
-        val upcomingAdapter = UpcomingAdapter()
         upcomingAdapter.addItems(upcomingList!!)
-
         rv_upcoming.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = upcomingAdapter

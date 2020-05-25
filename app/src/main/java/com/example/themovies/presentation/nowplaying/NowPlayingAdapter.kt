@@ -11,7 +11,8 @@ import com.example.themovies.domain.entities.Movie
 import com.example.themovies.utils.BASE_IMAGE_URL
 import kotlinx.android.synthetic.main.item_poster_grid.view.*
 
-class NowPlayingAdapter : RecyclerView.Adapter<NowPlayingAdapter.ViewHolder>() {
+class NowPlayingAdapter(private val onItemClick: (movie: Movie) -> Unit) :
+    RecyclerView.Adapter<NowPlayingAdapter.ViewHolder>() {
 
     private val nowPlayingList = mutableListOf<Movie>()
 
@@ -31,6 +32,7 @@ class NowPlayingAdapter : RecyclerView.Adapter<NowPlayingAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = nowPlayingList[position]
         holder.bind(movie)
+        holder.itemView.setOnClickListener { onItemClick (movie) }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
