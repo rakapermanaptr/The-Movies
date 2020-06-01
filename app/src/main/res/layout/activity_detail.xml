@@ -122,9 +122,9 @@
                                 android:background="@drawable/background_status"
                                 android:gravity="center"
                                 android:padding="4dp"
+                                android:textAllCaps="true"
                                 android:textColor="@android:color/white"
                                 android:textSize="12sp"
-                                android:textAllCaps="true"
                                 tools:text="RELEASED" />
 
                         </LinearLayout>
@@ -152,8 +152,7 @@
                         android:id="@+id/layout_more_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/tv_header_duration"
@@ -239,5 +238,39 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        app:fab_addButtonColorNormal="@color/colorPrimary"
+        app:fab_addButtonColorPressed="@color/colorPrimaryOpp"
+        app:fab_addButtonPlusIconColor="@color/colorWhite"
+        app:fab_labelStyle="@style/custom_fab">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorWhite"
+            app:fab_colorPressed="@color/colorWhite"
+            app:fab_icon="@drawable/ic_favorite"
+            app:fab_size="mini"
+            app:fab_title="Favorite" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_watchlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorWhite"
+            app:fab_colorPressed="@color/colorWhite"
+            app:fab_icon="@drawable/ic_watchlist"
+            app:fab_size="mini"
+            app:fab_title="Watchlist" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </RelativeLayout>

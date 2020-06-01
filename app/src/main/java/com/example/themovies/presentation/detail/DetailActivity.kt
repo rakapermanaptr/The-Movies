@@ -148,6 +148,11 @@ class DetailActivity : AppCompatActivity() {
         tv_overview.setOnClickListener {
             if (tv_overview.maxLines == 5) tv_overview.maxLines = 99 else tv_overview.maxLines = 5
         }
+
+        // fab action
+        fab_favorite.setOnClickListener { showToast("favorite clicked") }
+
+        fab_watchlist.setOnClickListener { showToast("watchlist clicked") }
     }
 
     private fun showTvShowDetail(tvShowDetail: TvShowDetail?) {
