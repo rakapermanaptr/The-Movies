@@ -48,6 +48,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "com.github.smarteist:autoimageslider:$sliderVersion"
     implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
+    implementation "com.getbase:floatingactionbutton:$fabVersion"
 
     /* Networking -- Retrofit, Moshi, OkHttp and Coroutine */
     implementation "com.squareup.moshi:moshi:$moshiVersion"
