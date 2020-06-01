@@ -30,4 +30,10 @@ interface ITheMoviesRepository {
 
     fun getSimilarMovies(movieId: Int): LiveData<Resource<List<Movie>>>
 
+    fun getRequestToken(): LiveData<Resource<RequestToken>>
+
+    fun validateTokenWithLogin(dataLogin: ValidateWithLogin): LiveData<Resource<RequestToken>>
+
+    fun createSession(createSession: CreateSession): LiveData<Resource<Session>>
+
 }

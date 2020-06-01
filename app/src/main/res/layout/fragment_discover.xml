@@ -34,9 +34,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/google_sans_medium"
-                    tools:text="@string/most_popular_tv_shows"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="@string/most_popular_tv_shows" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_popularTvShows"
@@ -54,9 +54,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/google_sans_medium"
-                    tools:text="@string/most_popular_drama"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="@string/most_popular_drama" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_popularDrama"
@@ -74,19 +74,19 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/google_sans_medium"
-                    tools:text="@string/most_popular_action"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="@string/most_popular_action" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_popularAction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:clipToPadding="false"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_marginBottom="8dp"/>
+                    android:paddingEnd="16dp" />
 
             </LinearLayout>
 

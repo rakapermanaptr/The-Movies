@@ -2,9 +2,7 @@ package com.example.themovies.data.source.remote.network
 
 import com.example.themovies.domain.entities.*
 import kotlinx.coroutines.Deferred
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface TheMoviesService {
 
@@ -49,4 +47,13 @@ interface TheMoviesService {
 
     @GET("movie/{movie_id}/similar")
     fun getSimilarMoviesAsync(@Path("movie_id") tvShowId: Int): Deferred<BaseResponse<Movie>>
+
+    @GET("authentication/token/new")
+    fun getRequestTokenAsync(): Deferred<RequestToken>
+
+    @POST("authentication/token/validate_with_login")
+    fun validateTokenWithLoginAsync(@Body validateWithLogin: ValidateWithLogin): Deferred<RequestToken>
+
+    @POST("authentication/session/new")
+    fun createSessionAsync(@Body createSession: CreateSession): Deferred<Session>
 }

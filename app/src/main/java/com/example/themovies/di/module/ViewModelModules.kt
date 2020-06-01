@@ -7,6 +7,7 @@ import com.example.themovies.di.ViewModelKey
 import com.example.themovies.presentation.detail.DetailViewModel
 import com.example.themovies.presentation.discover.DiscoverViewModel
 import com.example.themovies.presentation.nowplaying.NowPlayingViewModel
+import com.example.themovies.presentation.profile.ProfileViewModel
 import com.example.themovies.presentation.upcoming.UpcomingViewModel
 import dagger.Binds
 import dagger.Module
@@ -14,6 +15,11 @@ import dagger.multibindings.IntoMap
 
 @Module
 abstract class ViewModelModules {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileViewModel::class)
+    abstract fun bindProfileViewModel(profileViewModel: ProfileViewModel): ViewModel
 
     @Binds
     @IntoMap

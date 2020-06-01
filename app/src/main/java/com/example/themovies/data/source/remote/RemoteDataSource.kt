@@ -208,4 +208,52 @@ class RemoteDataSource(private val service: TheMoviesService) {
         return resultSimilarMovies
     }
 
+    fun getRequestToken(): LiveData<Resource<RequestToken>> {
+        val resultRequestToken = MutableLiveData<Resource<RequestToken>>()
+        coroutineScope.launch {
+            resultRequestToken.value = Resource.loading(null)
+            try {
+                val requestToken = service.getRequestTokenAsync().await()
+                resultRequestToken.value = Resource.success(requestToken)
+            } catch (e: Exception) {
+                resultRequestToken.value = Resource.error(e.localizedMessage, null)
+                Log.e("RemoteDataSource", "getRequestToken Error : ${e.localizedMessage}")
+            }
+        }
+
+        return resultRequestToken
+    }
+
+    fun validateTokenWithLogin(dataLogin: ValidateWithLogin): LiveData<Resource<RequestToken>> {
+        val resultValidateWithLogin = MutableLiveData<Resource<RequestToken>>()
+        coroutineScope.launch {
+            resultValidateWithLogin.value = Resource.loading(null)
+            try {
+                val validateWithLogin = service.validateTokenWithLoginAsync(dataLogin).await()
+                resultValidateWithLogin.value = Resource.success(validateWithLogin)
+            } catch (e: Exception) {
+                resultValidateWithLogin.value = Resource.error(e.localizedMessage, null)
+                Log.e("RemoteDataSource", "validateWithLogin Error : ${e.localizedMessage}")
+            }
+        }
+
+        return resultValidateWithLogin
+    }
+
+    fun createSession(createSession: CreateSession): LiveData<Resource<Session>> {
+        val resultCreateSession = MutableLiveData<Resource<Session>>()
+        coroutineScope.launch {
+            resultCreateSession.value = Resource.loading(null)
+            try {
+                val session = service.createSessionAsync(createSession).await()
+                resultCreateSession.value = Resource.success(session)
+            } catch (e: Exception) {
+                resultCreateSession.value = Resource.error(e.localizedMessage, null)
+                Log.e("RemoteDataSource", "createSession Error : ${e.localizedMessage}")
+            }
+        }
+
+        return resultCreateSession
+    }
+
 }

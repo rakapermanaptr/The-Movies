@@ -45,4 +45,13 @@ class TheMoviesRepository @Inject constructor(private val remoteDataSource: Remo
     override fun getSimilarMovies(movieId: Int): LiveData<Resource<List<Movie>>> =
         remoteDataSource.getSimilarMovies(movieId)
 
+    override fun getRequestToken(): LiveData<Resource<RequestToken>> =
+        remoteDataSource.getRequestToken()
+
+    override fun validateTokenWithLogin(dataLogin: ValidateWithLogin): LiveData<Resource<RequestToken>> =
+        remoteDataSource.validateTokenWithLogin(dataLogin)
+
+    override fun createSession(createSession: CreateSession): LiveData<Resource<Session>> =
+        remoteDataSource.createSession(createSession)
+
 }
