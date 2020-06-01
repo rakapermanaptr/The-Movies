@@ -256,4 +256,20 @@ class RemoteDataSource(private val service: TheMoviesService) {
         return resultCreateSession
     }
 
+    fun getProfileDetail(sessionId: String): LiveData<Resource<Profile>> {
+        val resultAccountDetail = MutableLiveData<Resource<Profile>>()
+        coroutineScope.launch {
+            resultAccountDetail.value = Resource.loading(null)
+            try {
+                val account = service.getProfileDetailAsync(sessionId).await()
+                resultAccountDetail.value = Resource.success(account)
+            } catch (e: Exception) {
+                resultAccountDetail.value = Resource.error(e.localizedMessage, null)
+                Log.e("RemoteDataSource", "getAccountDetail Error : ${e.localizedMessage}")
+            }
+        }
+
+        return resultAccountDetail
+    }
+
 }

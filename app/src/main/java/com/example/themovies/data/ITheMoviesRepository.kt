@@ -36,4 +36,6 @@ interface ITheMoviesRepository {
 
     fun createSession(createSession: CreateSession): LiveData<Resource<Session>>
 
+    fun getProfileDetail(sessionId: String): LiveData<Resource<Profile>>
+
 }

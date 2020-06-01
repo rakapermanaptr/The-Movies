@@ -6,16 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.themovies.R
 import com.example.themovies.data.source.local.SharedPreference
-import com.example.themovies.domain.entities.CreateSession
-import com.example.themovies.domain.entities.RequestToken
-import com.example.themovies.domain.entities.Session
-import com.example.themovies.domain.entities.ValidateWithLogin
+import com.example.themovies.domain.entities.*
+import com.example.themovies.presentation.profile.favorite.FavoriteFragment
+import com.example.themovies.presentation.profile.watchlist.WatchlistFragment
 import com.example.themovies.utils.*
 import com.example.themovies.utils.vo.Status
 import dagger.android.support.AndroidSupportInjection
@@ -47,6 +45,8 @@ class ProfileFragment : Fragment() {
 
         initView()
 
+        checkSession()
+
     }
 
     private fun initView() {
@@ -74,15 +74,56 @@ class ProfileFragment : Fragment() {
             requireActivity().hideKeyboard()
         }
 
-        // check session
-        preference.getString(KEY_SESSION)?.let { viewModel.checkSession(it) }
-        viewModel.isLoggedIn.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                true -> layout_login.hide()
-                false -> layout_login.show()
+        // setup viewpager
+        setupViewPager()
+
+    }
+
+    private fun checkSession() {
+        val sessionId = preference.getString(KEY_SESSION)
+        if (sessionId != null) {
+            viewModel.checkSession(sessionId)
+
+            viewModel.isLoggedIn.observe(viewLifecycleOwner, Observer {
+                when (it) {
+                    true -> {
+                        layout_login.hide()
+                        layout_profile.show()
+
+                        observeGetProfileDetail(sessionId)
+                    }
+                    false -> {
+                        layout_login.show()
+                        layout_profile.hide()
+                    }
+                }
+            })
+        } else {
+            layout_login.show()
+            layout_profile.hide()
+        }
+    }
+
+    private fun setupViewPager() {
+        val profileViewPagerAdapter = ProfileViewPagerAdapter(childFragmentManager)
+        profileViewPagerAdapter.populateFragment(FavoriteFragment(), "Favorite")
+        profileViewPagerAdapter.populateFragment(WatchlistFragment(), "Watchlist")
+
+        viewPager_profile.adapter = profileViewPagerAdapter
+        tab_profile.setupWithViewPager(viewPager_profile)
+    }
+
+    private fun observeGetProfileDetail(sessionId: String?) {
+        viewModel.getProfileDetail(sessionId!!).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> showLoading()
+                Status.SUCCESS -> {
+                    hideLoading()
+                    showProfile(it.data)
+                }
+                Status.ERROR -> hideLoading()
             }
         })
-
     }
 
     private fun showRequestToken(requestToken: RequestToken?) {
@@ -125,8 +166,15 @@ class ProfileFragment : Fragment() {
 
         if (session.success) {
             layout_login.hide()
-            showToast("Welcome...")
+            observeGetProfileDetail(session.sessionId)
+            layout_profile.show()
         }
+    }
+
+    private fun showProfile(profile: Profile?) {
+        showToast("Hallo...${profile!!.username}")
+
+        tv_username.text = profile.username
     }
 
     private fun showLoading() {

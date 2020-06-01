@@ -54,4 +54,7 @@ class TheMoviesRepository @Inject constructor(private val remoteDataSource: Remo
     override fun createSession(createSession: CreateSession): LiveData<Resource<Session>> =
         remoteDataSource.createSession(createSession)
 
+    override fun getProfileDetail(sessionId: String): LiveData<Resource<Profile>> =
+        remoteDataSource.getProfileDetail(sessionId)
+
 }

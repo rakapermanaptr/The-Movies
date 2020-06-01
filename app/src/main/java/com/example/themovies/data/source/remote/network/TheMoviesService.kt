@@ -56,4 +56,7 @@ interface TheMoviesService {
 
     @POST("authentication/session/new")
     fun createSessionAsync(@Body createSession: CreateSession): Deferred<Session>
+
+    @GET("account")
+    fun getProfileDetailAsync(@Query("session_id") sessionId: String): Deferred<Profile>
 }
