@@ -6,18 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.themovies.R
-import com.example.themovies.domain.entities.TvShow
+import com.example.themovies.domain.entities.Movie
 import com.example.themovies.utils.BASE_IMAGE_URL
-import com.example.themovies.utils.releaseDate
 import kotlinx.android.synthetic.main.item_poster.view.*
 
-class PopularTvShowsAdapter(private val onItemClick: (tvShow: TvShow) -> Unit) :
-    RecyclerView.Adapter<PopularTvShowsAdapter.ViewHolder>() {
+class PopularThrillerAdapter(private val onItemClick: (movies: Movie) -> Unit) :
+    RecyclerView.Adapter<PopularThrillerAdapter.ViewHolder>() {
 
-    private val tvShowList = mutableListOf<TvShow>()
+    private val movieList = mutableListOf<Movie>()
 
-    fun addItems(tvShows: List<TvShow>) {
-        tvShowList.addAll(tvShows)
+    fun addItems(movies: List<Movie>) {
+        movieList.addAll(movies)
         notifyDataSetChanged()
     }
 
@@ -27,23 +26,23 @@ class PopularTvShowsAdapter(private val onItemClick: (tvShow: TvShow) -> Unit) :
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = tvShowList.size
+    override fun getItemCount(): Int = movieList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val tvShow = tvShowList[position]
-        holder.bind(tvShow)
-        holder.itemView.setOnClickListener { onItemClick(tvShow) }
+        val movie = movieList[position]
+        holder.bind(movie)
+        holder.itemView.setOnClickListener { onItemClick(movie) }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(tvShow: TvShow) {
+        fun bind(moves: Movie) {
             Glide.with(itemView)
-                .load(BASE_IMAGE_URL + tvShow.posterPath)
+                .load(BASE_IMAGE_URL + moves.posterPath)
                 .into(itemView.img_poster)
 
-            itemView.tv_title_poster.text = tvShow.name
-            itemView.tv_voteAverage_poster.text = tvShow.voteAverage.toString()
+            itemView.tv_title_poster.text = moves.title
+            itemView.tv_voteAverage_poster.text = moves.voteAverage.toString()
         }
     }
 

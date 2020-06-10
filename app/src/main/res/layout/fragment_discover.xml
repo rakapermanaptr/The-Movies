@@ -28,7 +28,7 @@
                     android:paddingEnd="16dp" />
 
                 <TextView
-                    android:id="@+id/tv_header_mostPopularTvShows"
+                    android:id="@+id/tv_header_bestThrillerMovies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -36,7 +36,7 @@
                     android:fontFamily="@font/google_sans_medium"
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
-                    tools:text="@string/most_popular_tv_shows" />
+                    tools:text="@string/best_popular_thriller" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_popularTvShows"

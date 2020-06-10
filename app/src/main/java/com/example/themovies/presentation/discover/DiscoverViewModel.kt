@@ -13,7 +13,7 @@ class DiscoverViewModel @Inject constructor(private val repository: TheMoviesRep
 
     fun getPopularMovies(): LiveData<Resource<List<Movie>>> = repository.getPopularMovies()
 
-    fun getPopularTvShows(): LiveData<Resource<List<TvShow>>> = repository.getPopularTvShows()
+    fun getPopularThriller(): LiveData<Resource<List<Movie>>> = repository.getMostPopularThriller()
 
     fun getPopularDrama(): LiveData<Resource<List<TvShow>>> = repository.getPopularDramaTvShows()
 

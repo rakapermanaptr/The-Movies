@@ -8,7 +8,7 @@ interface ITheMoviesRepository {
 
     fun getPopularMovies(): LiveData<Resource<List<Movie>>>
 
-    fun getPopularTvShows(): LiveData<Resource<List<TvShow>>>
+    fun getMostPopularThriller(): LiveData<Resource<List<Movie>>>
 
     fun getPopularDramaTvShows(): LiveData<Resource<List<TvShow>>>
 

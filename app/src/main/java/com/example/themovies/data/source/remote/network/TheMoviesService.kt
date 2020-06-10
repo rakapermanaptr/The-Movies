@@ -9,8 +9,10 @@ interface TheMoviesService {
     @GET("discover/movie")
     fun getPopularMoviesAsync(@Query("sort_by") sortBy: String): Deferred<BaseResponse<Movie>>
 
-    @GET("discover/tv")
-    fun getPopularTvShowsAsync(@Query("sort_by") sortBy: String): Deferred<BaseResponse<TvShow>>
+    @GET("discover/movie")
+    fun getMostPopularThrillerAsync(
+        @Query("with_genres") genresId: Int,
+        @Query("primary_release_year") releaseYear: Int): Deferred<BaseResponse<Movie>>
 
     @GET("discover/tv")
     fun getPopularDramaTvShowsAsync(

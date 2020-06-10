@@ -32,20 +32,20 @@ class RemoteDataSource(private val service: TheMoviesService) {
         return resultPopularMovies
     }
 
-    fun getPopularTvShows(): LiveData<Resource<List<TvShow>>> {
-        val resultPopularTvShows = MutableLiveData<Resource<List<TvShow>>>()
+    fun getMostPopularThriller(): LiveData<Resource<List<Movie>>> {
+        val resultMostPopularThriller = MutableLiveData<Resource<List<Movie>>>()
         coroutineScope.launch {
-            resultPopularTvShows.value = Resource.loading(null)
+            resultMostPopularThriller.value = Resource.loading(null)
             try {
-                val popularTvShows = service.getPopularTvShowsAsync("popularity.desc").await()
-                resultPopularTvShows.value = Resource.success(popularTvShows.data)
+                val bestActionMovies = service.getMostPopularThrillerAsync(53, 2020).await()
+                resultMostPopularThriller.value = Resource.success(bestActionMovies.data)
             } catch (e: Exception) {
-                resultPopularTvShows.value = Resource.error(e.localizedMessage, null)
+                resultMostPopularThriller.value = Resource.error(e.localizedMessage, null)
                 Log.e("RemoteDataSource", "getPopularTvShows Error : ${e.localizedMessage}")
             }
         }
 
-        return resultPopularTvShows
+        return resultMostPopularThriller
     }
 
     fun getPopularDramaTvShows(): LiveData<Resource<List<TvShow>>> {

@@ -26,8 +26,8 @@ class DiscoverFragment : Fragment() {
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: DiscoverViewModel
 
-    private val popularTvShowsAdapter = PopularTvShowsAdapter { tvShow ->
-        NavigationUtils.navigateToDetailActivity(requireContext(), tvShow.id, TV_SHOW)
+    private val bestThrillerMoviesAdapter = PopularThrillerAdapter { movie ->
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id, MOVIE)
     }
 
     private val popularDramaAdapter = PopularDramaAdapter { tvShow ->
@@ -63,12 +63,12 @@ class DiscoverFragment : Fragment() {
             }
         })
 
-        viewModel.getPopularTvShows().observe(viewLifecycleOwner, Observer {
+        viewModel.getPopularThriller().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> showLoading()
                 Status.SUCCESS -> {
                     hideLoading()
-                    showPopularTvShows(it.data)
+                    showPopularThriller(it.data)
                 }
                 Status.ERROR -> hideLoading()
             }
@@ -107,13 +107,13 @@ class DiscoverFragment : Fragment() {
         viewPagerBanner.adapter = bannerAdapter
     }
 
-    private fun showPopularTvShows(tvShows: List<TvShow>?) {
-        tv_header_mostPopularTvShows.text = getString(R.string.most_popular_tv_shows)
+    private fun showPopularThriller(movies: List<Movie>?) {
+        tv_header_bestThrillerMovies.text = getString(R.string.best_popular_thriller)
 
-        popularTvShowsAdapter.addItems(tvShows!!)
+        bestThrillerMoviesAdapter.addItems(movies!!)
         rv_popularTvShows.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-            adapter = popularTvShowsAdapter
+            adapter = bestThrillerMoviesAdapter
         }
     }
 
