@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.themovies.R
+import com.example.themovies.data.source.local.SharedPreference
 import com.example.themovies.domain.entities.*
 import com.example.themovies.utils.*
 import com.example.themovies.utils.vo.Status
@@ -20,6 +21,8 @@ class DetailActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: DetailViewModel
+
+    private lateinit var preference: SharedPreference
 
     private var id: Int = 0
     private lateinit var type: String
@@ -47,13 +50,18 @@ class DetailActivity : AppCompatActivity() {
         id = intent.getIntExtra(KEY_ID, 0)
         type = intent.getStringExtra(KEY_TYPE)!!
 
-        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
+        // shared preference
+        preference = SharedPreference(this)
+
         observeViewModel()
 
         initView()
+
+        checkSession()
     }
 
     private fun observeViewModel() {
+        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
         when (type) {
             TV_SHOW -> {
                 viewModel.setSelectedTvShow(id)
@@ -149,10 +157,30 @@ class DetailActivity : AppCompatActivity() {
             if (tv_overview.maxLines == 5) tv_overview.maxLines = 99 else tv_overview.maxLines = 5
         }
 
-        // fab action
-        fab_favorite.setOnClickListener { showToast("favorite clicked") }
+    }
 
-        fab_watchlist.setOnClickListener { showToast("watchlist clicked") }
+    private fun checkSession() {
+        // session checking
+        val sessionId = preference.getString(KEY_SESSION)
+        if (sessionId != null) {
+            viewModel.checkSession(sessionId)
+
+            viewModel.isSessionActive.observe(this, Observer {
+                if (it) {
+                    fab_favorite.setOnClickListener { showToast("favorite clicked, active session") }
+
+                    fab_watchlist.setOnClickListener { showToast("watchlist clicked, active sessions") }
+                } else {
+                    fab_favorite.setOnClickListener { showToast("favorite clicked, not active session") }
+
+                    fab_watchlist.setOnClickListener { showToast("watchlist clicked, not active sessions") }
+                }
+            })
+        }  else {
+            fab_favorite.setOnClickListener { showToast("favorite clicked, session null") }
+
+            fab_watchlist.setOnClickListener { showToast("watchlist clicked, sessions null") }
+        }
     }
 
     private fun showTvShowDetail(tvShowDetail: TvShowDetail?) {

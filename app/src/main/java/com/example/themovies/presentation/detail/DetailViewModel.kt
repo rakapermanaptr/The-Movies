@@ -15,6 +15,14 @@ class DetailViewModel @Inject constructor(private val repository: TheMoviesRepos
     private var tvShowId = MutableLiveData<Int>()
     private var movieId = MutableLiveData<Int>()
 
+    private var _isSessionActive = MutableLiveData<Boolean>()
+    val isSessionActive: LiveData<Boolean>
+        get() = _isSessionActive
+
+    fun checkSession(sessionId: String) {
+        _isSessionActive.value = sessionId != ""
+    }
+
     fun setSelectedTvShow(tvShowId: Int) {
         this.tvShowId.value = tvShowId
     }
