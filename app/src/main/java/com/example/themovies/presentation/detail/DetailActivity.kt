@@ -167,19 +167,19 @@ class DetailActivity : AppCompatActivity() {
 
             viewModel.isSessionActive.observe(this, Observer {
                 if (it) {
-                    fab_favorite.setOnClickListener { showToast("favorite clicked, active session") }
+                    fab_favorite.setOnClickListener { showToast("Added to your favorite") }
 
-                    fab_watchlist.setOnClickListener { showToast("watchlist clicked, active sessions") }
+                    fab_watchlist.setOnClickListener { showToast("Added to your watchlist") }
                 } else {
-                    fab_favorite.setOnClickListener { showToast("favorite clicked, not active session") }
+                    fab_favorite.setOnClickListener { showToast("You are not login") }
 
-                    fab_watchlist.setOnClickListener { showToast("watchlist clicked, not active sessions") }
+                    fab_watchlist.setOnClickListener { showToast("You are not login") }
                 }
             })
         }  else {
-            fab_favorite.setOnClickListener { showToast("favorite clicked, session null") }
+            fab_favorite.setOnClickListener { showToast("You are not login") }
 
-            fab_watchlist.setOnClickListener { showToast("watchlist clicked, sessions null") }
+            fab_watchlist.setOnClickListener { showToast("You are not login") }
         }
     }
 
