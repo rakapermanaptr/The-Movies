@@ -10,6 +10,7 @@ import com.example.themovies.presentation.discover.DiscoverViewModel
 import com.example.themovies.presentation.login.LoginViewModel
 import com.example.themovies.presentation.nowplaying.NowPlayingViewModel
 import com.example.themovies.presentation.profile.ProfileViewModel
+import com.example.themovies.presentation.profile.favorite.FavoriteViewModel
 import com.example.themovies.presentation.upcoming.UpcomingViewModel
 import dagger.Binds
 import dagger.Module
@@ -17,6 +18,11 @@ import dagger.multibindings.IntoMap
 
 @Module
 abstract class ViewModelModules {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavoriteViewModel::class)
+    abstract fun bindFavoriteViewModel(favoriteViewModel: FavoriteViewModel): ViewModel
 
     @Binds
     @IntoMap

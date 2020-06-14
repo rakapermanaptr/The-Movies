@@ -38,4 +38,9 @@ interface ITheMoviesRepository {
 
     fun getProfileDetail(sessionId: String): LiveData<Resource<Profile>>
 
+    fun postFavoriteMovie(sessionId: String, favorite: Favorite): LiveData<Resource<FavoriteResponse>>
+
+    fun getFavoriteMovies(sessionId: String): LiveData<Resource<List<Movie>>>
+
+    fun getMovieState(movieId: Int, sessionId: String): LiveData<Resource<MovieStates>>
 }

@@ -18,6 +18,7 @@ import com.example.themovies.presentation.nowplaying.NowPlayingFragment
 import com.example.themovies.presentation.profile.ProfileFragment
 import com.example.themovies.presentation.upcoming.UpcomingFragment
 import com.example.themovies.utils.KEY_SESSION
+import com.example.themovies.utils.showToast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
@@ -88,11 +89,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         val sessionId = preference.getString(KEY_SESSION)
-
-        sessionId?.let {
-            viewModel.checkSession(it)
-        }
-
+        sessionId?.let { viewModel.checkSession(it) }
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -104,19 +101,37 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_home, menu)
+        viewModel.isLoggedIn.observe(this, Observer {
+            when (it) {
+                true -> menu.findItem(R.id.nav_login).title = "Logout"
+                false -> menu.findItem(R.id.nav_login).title = "Login"
+            }
+        })
+        this.menu = menu
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        navigateTo(item.itemId)
+        setActionMenu(item.itemId)
         return super.onOptionsItemSelected(item)
     }
 
-    private fun navigateTo(selectedNav: Int) {
+    private fun setActionMenu(selectedNav: Int) {
         when (selectedNav) {
             R.id.nav_login -> {
-                startActivity(Intent(this, LoginActivity::class.java))
+                viewModel.isLoggedIn.observe(this, Observer {
+                    when (it) {
+                        true -> {
+                            showToast("is login")
+                        }
+                        false -> startLoginActivity()
+                    }
+                })
             }
         }
+    }
+
+    private fun startLoginActivity() {
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 }

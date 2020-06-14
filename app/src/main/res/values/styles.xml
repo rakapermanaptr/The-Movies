@@ -10,6 +10,15 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
+    <style name="DetailTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
     <style name="custom_fab">
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/colorWhite</item>

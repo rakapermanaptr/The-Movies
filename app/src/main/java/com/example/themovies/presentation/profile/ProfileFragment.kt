@@ -99,7 +99,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showLoading() {
-        progress_bar.show()
+        progress_bar.hide()
     }
 
     private fun hideLoading() {

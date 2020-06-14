@@ -258,7 +258,7 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorWhite"
             app:fab_colorPressed="@color/colorWhite"
-            app:fab_icon="@drawable/ic_favorite"
+            app:fab_icon="@drawable/ic_favorited"
             app:fab_size="mini"
             app:fab_title="Favorite" />
 

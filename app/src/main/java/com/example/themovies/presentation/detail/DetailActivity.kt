@@ -2,6 +2,7 @@ package com.example.themovies.presentation.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,7 @@ class DetailActivity : AppCompatActivity() {
 
     private var id: Int = 0
     private lateinit var type: String
+    private var isFavorite: Boolean = false
 
     private val casterAdapter = CasterAdapter { cast ->
         showToast(cast.name)
@@ -53,6 +55,7 @@ class DetailActivity : AppCompatActivity() {
         // shared preference
         preference = SharedPreference(this)
 
+        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
         observeViewModel()
 
         initView()
@@ -60,8 +63,8 @@ class DetailActivity : AppCompatActivity() {
         checkSession()
     }
 
+    // need to refactor this function
     private fun observeViewModel() {
-        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
         when (type) {
             TV_SHOW -> {
                 viewModel.setSelectedTvShow(id)
@@ -157,6 +160,33 @@ class DetailActivity : AppCompatActivity() {
             if (tv_overview.maxLines == 5) tv_overview.maxLines = 99 else tv_overview.maxLines = 5
         }
 
+        checkMovieStates(id, preference.getString(KEY_SESSION)!!)
+    }
+
+    private fun checkMovieStates(movieId: Int, sessionId: String) {
+        viewModel.getMovieStates(movieId, sessionId).observe(this, Observer {
+            when (it.status) {
+                Status.LOADING -> showLoading()
+                Status.SUCCESS -> {
+                    hideLoading()
+
+                    isFavorite = it.data!!.favorite
+
+                    setMovieStates(isFavorite)
+                }
+                Status.ERROR -> hideLoading()
+            }
+        })
+    }
+
+    private fun setMovieStates(isFavorite: Boolean) {
+        if (isFavorite) {
+            fab_favorite.colorNormal = ContextCompat.getColor(this, R.color.colorPrimary)
+            fab_favorite.colorPressed = ContextCompat.getColor(this, R.color.colorPrimary)
+        } else {
+            fab_favorite.colorNormal = ContextCompat.getColor(this, R.color.colorWhite)
+            fab_favorite.colorPressed = ContextCompat.getColor(this, R.color.colorWhite)
+        }
     }
 
     private fun checkSession() {
@@ -167,7 +197,19 @@ class DetailActivity : AppCompatActivity() {
 
             viewModel.isSessionActive.observe(this, Observer {
                 if (it) {
-                    fab_favorite.setOnClickListener { showToast("Added to your favorite") }
+                    fab_favorite.setOnClickListener {
+
+                        if (isFavorite) {
+                            val favorite = Favorite(favorite = false, mediaId = id, mediaType = "movie")
+
+                            addOrRemoveFavoriteMovie(sessionId, favorite)
+                        } else {
+                            val favorite = Favorite(favorite = true, mediaId = id, mediaType = "movie")
+
+                            addOrRemoveFavoriteMovie(sessionId, favorite)
+                        }
+
+                    }
 
                     fab_watchlist.setOnClickListener { showToast("Added to your watchlist") }
                 } else {
@@ -176,11 +218,24 @@ class DetailActivity : AppCompatActivity() {
                     fab_watchlist.setOnClickListener { showToast("You are not login") }
                 }
             })
-        }  else {
+        } else {
             fab_favorite.setOnClickListener { showToast("You are not login") }
 
             fab_watchlist.setOnClickListener { showToast("You are not login") }
         }
+    }
+
+    private fun addOrRemoveFavoriteMovie(sessionId: String, favorite: Favorite) {
+        viewModel.postFavoriteMovie(sessionId, favorite).observe(this, Observer {
+            when (it.status) {
+                Status.LOADING -> showLoading()
+                Status.SUCCESS -> {
+                    showToast(it.data!!.statusMessage)
+                    checkMovieStates(id, sessionId)
+                }
+                Status.ERROR -> hideLoading()
+            }
+        })
     }
 
     private fun showTvShowDetail(tvShowDetail: TvShowDetail?) {

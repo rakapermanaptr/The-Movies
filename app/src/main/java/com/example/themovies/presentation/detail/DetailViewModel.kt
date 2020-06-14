@@ -60,4 +60,13 @@ class DetailViewModel @Inject constructor(private val repository: TheMoviesRepos
         Transformations.switchMap(movieId) { mMovieId ->
             repository.getSimilarMovies(mMovieId)
         }
+
+    fun postFavoriteMovie(
+        sessionId: String,
+        favorite: Favorite
+    ): LiveData<Resource<FavoriteResponse>> = repository.postFavoriteMovie(sessionId, favorite)
+
+    fun getMovieStates(movieId: Int, sessionId: String): LiveData<Resource<MovieStates>> =
+        repository.getMovieState(movieId, sessionId)
+
 }

@@ -17,7 +17,7 @@ class SharedPreference(context: Context) {
     }
 
     fun getString(key: String): String? {
-        return sharedPreferences.getString(key, null)
+        return sharedPreferences.getString(key, "")
     }
 
     fun saveBoolean(key: String, value: Boolean) {

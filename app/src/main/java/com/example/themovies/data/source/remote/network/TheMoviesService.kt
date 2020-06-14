@@ -12,7 +12,8 @@ interface TheMoviesService {
     @GET("discover/movie")
     fun getMostPopularThrillerAsync(
         @Query("with_genres") genresId: Int,
-        @Query("primary_release_year") releaseYear: Int): Deferred<BaseResponse<Movie>>
+        @Query("primary_release_year") releaseYear: Int
+    ): Deferred<BaseResponse<Movie>>
 
     @GET("discover/tv")
     fun getPopularDramaTvShowsAsync(
@@ -61,4 +62,19 @@ interface TheMoviesService {
 
     @GET("account")
     fun getProfileDetailAsync(@Query("session_id") sessionId: String): Deferred<Profile>
+
+    @POST("account/{account_id}/favorite")
+    fun postFavoriteAsync(
+        @Query("session_id") sessionId: String,
+        @Body favorite: Favorite
+    ): Deferred<FavoriteResponse>
+
+    @GET("account/{account_id}/favorite/movies")
+    fun getFavoriteMoviesAsync(@Query("session_id") session_id: String): Deferred<BaseResponse<Movie>>
+
+    @GET("movie/{movie_id}/account_states")
+    fun getMovieStatesAsync(
+        @Path("movie_id") movieId: Int,
+        @Query("session_id") sessionId: String
+    ): Deferred<MovieStates>
 }

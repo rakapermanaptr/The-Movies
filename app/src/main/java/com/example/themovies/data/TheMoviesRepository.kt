@@ -57,4 +57,16 @@ class TheMoviesRepository @Inject constructor(private val remoteDataSource: Remo
     override fun getProfileDetail(sessionId: String): LiveData<Resource<Profile>> =
         remoteDataSource.getProfileDetail(sessionId)
 
+    override fun postFavoriteMovie(
+        sessionId: String,
+        favorite: Favorite
+    ): LiveData<Resource<FavoriteResponse>> = remoteDataSource.postFavoriteMovie(sessionId, favorite)
+
+    override fun getFavoriteMovies(sessionId: String): LiveData<Resource<List<Movie>>> =
+        remoteDataSource.getFavoriteMovies(sessionId)
+
+    override fun getMovieState(movieId: Int, sessionId: String): LiveData<Resource<MovieStates>> =
+        remoteDataSource.getMovieStates(movieId, sessionId)
+
+
 }

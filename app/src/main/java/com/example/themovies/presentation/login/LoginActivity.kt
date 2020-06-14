@@ -1,5 +1,6 @@
 package com.example.themovies.presentation.login
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import com.example.themovies.R
 import com.example.themovies.data.source.local.SharedPreference
 import com.example.themovies.domain.entities.CreateSession
 import com.example.themovies.domain.entities.ValidateWithLogin
+import com.example.themovies.presentation.MainActivity
 import com.example.themovies.utils.*
 import com.example.themovies.utils.vo.Status
 import dagger.android.AndroidInjection
@@ -97,6 +99,7 @@ class LoginActivity : AppCompatActivity() {
                         true -> {
                             showProfile(it.data.sessionId)
                             saveSession(it.data.sessionId)
+                            startMainActivity()
                         }
                         false -> {
                             showErrorMessage(it.message)
@@ -122,6 +125,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun saveSession(sessionId: String?) {
         preference.saveString(KEY_SESSION, sessionId!!)
+    }
+
+    private fun startMainActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 

@@ -272,4 +272,52 @@ class RemoteDataSource(private val service: TheMoviesService) {
         return resultAccountDetail
     }
 
+    fun postFavoriteMovie(sessionId: String, favorite: Favorite): LiveData<Resource<FavoriteResponse>> {
+        val resultFavorite = MutableLiveData<Resource<FavoriteResponse>>()
+        coroutineScope.launch {
+            resultFavorite.value = Resource.loading(null)
+            try {
+                val favoriteResponse = service.postFavoriteAsync(sessionId, favorite).await()
+                resultFavorite.value = Resource.success(favoriteResponse)
+            } catch (e: Exception) {
+                resultFavorite.value = Resource.error(e.localizedMessage, null)
+                Log.e("RemoteDataSource", "postFavoriteMovie Error : ${e.localizedMessage}")
+            }
+        }
+
+        return resultFavorite
+    }
+
+    fun getFavoriteMovies(sessionId: String): LiveData<Resource<List<Movie>>> {
+        val resultFavoriteMovies = MutableLiveData<Resource<List<Movie>>>()
+        coroutineScope.launch {
+            resultFavoriteMovies.value = Resource.loading(null)
+            try {
+                val favoriteMovies = service.getFavoriteMoviesAsync(sessionId).await()
+                resultFavoriteMovies.value = Resource.success(favoriteMovies.data)
+            } catch (e: Exception) {
+                resultFavoriteMovies.value = Resource.error(e.localizedMessage, null)
+                Log.e("RemoteDataSource", "getFavoriteMovies Error : ${e.localizedMessage}")
+            }
+        }
+
+        return resultFavoriteMovies
+    }
+
+    fun getMovieStates(movieId: Int, sessionId: String): LiveData<Resource<MovieStates>> {
+        val resultMovieStates = MutableLiveData<Resource<MovieStates>>()
+        coroutineScope.launch {
+            resultMovieStates.value = Resource.loading(null)
+            try {
+                val movieStates = service.getMovieStatesAsync(movieId, sessionId).await()
+                resultMovieStates.value = Resource.success(movieStates)
+            } catch (e: Exception) {
+                resultMovieStates.value = Resource.error(e.localizedMessage, null)
+                Log.e("RemoteDataSource", "getMovieStates Error : ${e.localizedMessage}")
+            }
+        }
+
+        return resultMovieStates
+    }
+
 }
