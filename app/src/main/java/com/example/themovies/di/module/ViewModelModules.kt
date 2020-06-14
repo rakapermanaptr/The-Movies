@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.themovies.di.ViewModelFactory
 import com.example.themovies.di.ViewModelKey
+import com.example.themovies.presentation.MainViewModel
 import com.example.themovies.presentation.detail.DetailViewModel
 import com.example.themovies.presentation.discover.DiscoverViewModel
+import com.example.themovies.presentation.login.LoginViewModel
 import com.example.themovies.presentation.nowplaying.NowPlayingViewModel
 import com.example.themovies.presentation.profile.ProfileViewModel
 import com.example.themovies.presentation.upcoming.UpcomingViewModel
@@ -15,6 +17,16 @@ import dagger.multibindings.IntoMap
 
 @Module
 abstract class ViewModelModules {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel::class)
+    abstract fun bindLoginViewModel(loginViewModel: LoginViewModel): ViewModel
 
     @Binds
     @IntoMap

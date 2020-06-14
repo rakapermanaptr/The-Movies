@@ -50,33 +50,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initView() {
-        parent_layout.setOnClickListener { requireActivity().hideKeyboard() }
-
-        // button login action
-        btn_login.setOnClickListener {
-
-            if (edt_username.text.toString().isNotEmpty() && edt_password.text.toString().isNotEmpty()) {
-
-                // 1. get request token
-                viewModel.getRequestToken().observe(viewLifecycleOwner, Observer {
-                    when (it.status) {
-                        Status.LOADING -> showLoading()
-                        Status.SUCCESS -> {
-                            hideLoading()
-                            showRequestToken(it.data)
-                        }
-                        Status.ERROR -> hideLoading()
-                    }
-                })
-
-            }
-
-            requireActivity().hideKeyboard()
-        }
-
         // setup viewpager
         setupViewPager()
-
     }
 
     private fun checkSession() {
@@ -86,21 +61,15 @@ class ProfileFragment : Fragment() {
 
             viewModel.isLoggedIn.observe(viewLifecycleOwner, Observer {
                 when (it) {
-                    true -> {
-                        layout_login.hide()
-                        layout_profile.show()
-
-                        observeGetProfileDetail(sessionId)
-                    }
+                    true -> observeGetProfileDetail(sessionId)
                     false -> {
-                        layout_login.show()
                         layout_profile.hide()
+                        tv_havent_login.show()
                     }
                 }
             })
         } else {
-            layout_login.show()
-            layout_profile.hide()
+            tv_havent_login.show()
         }
     }
 
@@ -109,8 +78,8 @@ class ProfileFragment : Fragment() {
         profileViewPagerAdapter.populateFragment(FavoriteFragment(), "Favorite")
         profileViewPagerAdapter.populateFragment(WatchlistFragment(), "Watchlist")
 
-        viewPager_profile.adapter = profileViewPagerAdapter
-        tab_profile.setupWithViewPager(viewPager_profile)
+        view_pager.adapter = profileViewPagerAdapter
+        tabs.setupWithViewPager(view_pager)
     }
 
     private fun observeGetProfileDetail(sessionId: String?) {
@@ -125,56 +94,8 @@ class ProfileFragment : Fragment() {
             }
         })
     }
-
-    private fun showRequestToken(requestToken: RequestToken?) {
-        val validateWithLogin = ValidateWithLogin(
-            username = edt_username.text.toString(),
-            password = edt_password.text.toString(),
-            requestToken = requestToken!!.requestToken
-        )
-        // 2. validate token with login data
-        viewModel.validateTokenWithLogin(validateWithLogin).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> showLoading()
-                Status.SUCCESS -> {
-                    hideLoading()
-                    validateWithLogin(it.data)
-                }
-                Status.ERROR -> hideLoading()
-            }
-        })
-    }
-
-    private fun validateWithLogin(requestToken: RequestToken?) {
-        val createSession = CreateSession(requestToken = requestToken!!.requestToken)
-        // 3. create session
-        viewModel.createSession(createSession).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> showLoading()
-                Status.SUCCESS -> {
-                    hideLoading()
-                    createSession(it.data)
-                }
-                Status.ERROR -> hideLoading()
-            }
-        })
-    }
-
-    private fun createSession(session: Session?) {
-        // save session to the sharedPref
-        preference.saveString(KEY_SESSION, session!!.sessionId)
-
-        if (session.success) {
-            layout_login.hide()
-            observeGetProfileDetail(session.sessionId)
-            layout_profile.show()
-        }
-    }
-
     private fun showProfile(profile: Profile?) {
-        showToast("Hallo...${profile!!.username}")
-
-        tv_username.text = profile.username
+        tv_username.text = profile!!.username
     }
 
     private fun showLoading() {
