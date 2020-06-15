@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.themovies.R
 import com.example.themovies.domain.entities.Movie
-import com.example.themovies.domain.entities.TvShow
 import com.example.themovies.utils.*
 import com.example.themovies.utils.vo.Status
 import dagger.android.support.AndroidSupportInjection
@@ -27,15 +26,15 @@ class DiscoverFragment : Fragment() {
     private lateinit var viewModel: DiscoverViewModel
 
     private val bestThrillerMoviesAdapter = PopularThrillerAdapter { movie ->
-        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id, MOVIE)
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id)
     }
 
-    private val popularDramaAdapter = PopularDramaAdapter { tvShow ->
-        NavigationUtils.navigateToDetailActivity(requireContext(), tvShow.id, TV_SHOW)
+    private val popularDramaAdapter = PopularDramaAdapter { movie ->
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id)
     }
 
     private val popularActionAdapter = PopularActionAdapter { movie ->
-        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id, MOVIE)
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id)
     }
 
     override fun onAttach(context: Context) {
@@ -117,7 +116,7 @@ class DiscoverFragment : Fragment() {
         }
     }
 
-    private fun showPopularDrama(popularDramaList: List<TvShow>?) {
+    private fun showPopularDrama(popularDramaList: List<Movie>?) {
         tv_header_mostPopularDrama.text = getString(R.string.most_popular_drama)
 
         popularDramaAdapter.addItems(popularDramaList!!)

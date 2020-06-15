@@ -10,7 +10,7 @@ interface ITheMoviesRepository {
 
     fun getMostPopularThriller(): LiveData<Resource<List<Movie>>>
 
-    fun getPopularDramaTvShows(): LiveData<Resource<List<TvShow>>>
+    fun getPopularDrama(): LiveData<Resource<List<Movie>>>
 
     fun getPopularActionMovies(): LiveData<Resource<List<Movie>>>
 
@@ -18,15 +18,9 @@ interface ITheMoviesRepository {
 
     fun getUpcomingMovies(): LiveData<Resource<List<Movie>>>
 
-    fun getTvShowDetail(tvShowId: Int): LiveData<Resource<TvShowDetail>>
-
     fun getMovieDetail(movieId: Int): LiveData<Resource<MovieDetail>>
 
-    fun getTvShowCaster(tvShowId: Int): LiveData<Resource<List<Cast>>>
-
     fun getMovieCaster(movieId: Int): LiveData<Resource<List<Cast>>>
-
-    fun getSimilarTvShows(tvShowId: Int): LiveData<Resource<List<TvShow>>>
 
     fun getSimilarMovies(movieId: Int): LiveData<Resource<List<Movie>>>
 

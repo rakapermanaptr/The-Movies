@@ -15,8 +15,8 @@ class TheMoviesRepository @Inject constructor(private val remoteDataSource: Remo
     override fun getMostPopularThriller(): LiveData<Resource<List<Movie>>> =
         remoteDataSource.getMostPopularThriller()
 
-    override fun getPopularDramaTvShows(): LiveData<Resource<List<TvShow>>> =
-        remoteDataSource.getPopularDramaTvShows()
+    override fun getPopularDrama(): LiveData<Resource<List<Movie>>> =
+        remoteDataSource.getPopularDrama()
 
     override fun getPopularActionMovies(): LiveData<Resource<List<Movie>>> =
         remoteDataSource.getPopularActionMovies()
@@ -27,20 +27,11 @@ class TheMoviesRepository @Inject constructor(private val remoteDataSource: Remo
     override fun getUpcomingMovies(): LiveData<Resource<List<Movie>>> =
         remoteDataSource.getUpcomingMovies()
 
-    override fun getTvShowDetail(tvShowId: Int): LiveData<Resource<TvShowDetail>> =
-        remoteDataSource.getTvShowDetail(tvShowId)
-
     override fun getMovieDetail(movieId: Int): LiveData<Resource<MovieDetail>> =
         remoteDataSource.getMovieDetail(movieId)
 
-    override fun getTvShowCaster(tvShowId: Int): LiveData<Resource<List<Cast>>> =
-        remoteDataSource.getTvShowCaster(tvShowId)
-
     override fun getMovieCaster(movieId: Int): LiveData<Resource<List<Cast>>> =
         remoteDataSource.getMovieCaster(movieId)
-
-    override fun getSimilarTvShows(tvShowId: Int): LiveData<Resource<List<TvShow>>> =
-        remoteDataSource.getSimilarTvShows(tvShowId)
 
     override fun getSimilarMovies(movieId: Int): LiveData<Resource<List<Movie>>> =
         remoteDataSource.getSimilarMovies(movieId)

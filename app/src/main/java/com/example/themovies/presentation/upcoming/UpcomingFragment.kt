@@ -31,7 +31,7 @@ class UpcomingFragment : Fragment() {
     private lateinit var viewModel: UpcomingViewModel
 
     private val upcomingAdapter = UpcomingAdapter { movie ->
-        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id, MOVIE)
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id)
     }
 
     override fun onAttach(context: Context) {

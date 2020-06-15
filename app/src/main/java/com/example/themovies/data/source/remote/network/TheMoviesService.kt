@@ -15,11 +15,11 @@ interface TheMoviesService {
         @Query("primary_release_year") releaseYear: Int
     ): Deferred<BaseResponse<Movie>>
 
-    @GET("discover/tv")
-    fun getPopularDramaTvShowsAsync(
+    @GET("discover/movie")
+    fun getPopularDramaAsync(
         @Query("with_genres") genreId: Int,
         @Query("primary_release_year") releaseYear: Int
-    ): Deferred<BaseResponse<TvShow>>
+    ): Deferred<BaseResponse<Movie>>
 
     @GET("discover/movie")
     fun getPopularActionMoviesAsync(
@@ -33,20 +33,11 @@ interface TheMoviesService {
     @GET("movie/upcoming")
     fun getUpcomingMoviesAsync(): Deferred<BaseResponse<Movie>>
 
-    @GET("tv/{tv_id}")
-    fun getTvShowDetailAsync(@Path("tv_id") tvShowId: Int): Deferred<TvShowDetail>
-
     @GET("movie/{movie_id}")
     fun getMovieDetailAsync(@Path("movie_id") movieId: Int): Deferred<MovieDetail>
 
-    @GET("tv/{tv_id}/credits")
-    fun getTvShowCasterAsync(@Path("tv_id") tvShowId: Int): Deferred<CasterResponse>
-
     @GET("movie/{movie_id}/credits")
     fun getMovieCasterAsync(@Path("movie_id") tvShowId: Int): Deferred<CasterResponse>
-
-    @GET("tv/{tv_id}/similar")
-    fun getSimilarTvShowsAsync(@Path("tv_id") tvShowId: Int): Deferred<BaseResponse<TvShow>>
 
     @GET("movie/{movie_id}/similar")
     fun getSimilarMoviesAsync(@Path("movie_id") tvShowId: Int): Deferred<BaseResponse<Movie>>

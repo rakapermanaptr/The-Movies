@@ -48,12 +48,12 @@ class RemoteDataSource(private val service: TheMoviesService) {
         return resultMostPopularThriller
     }
 
-    fun getPopularDramaTvShows(): LiveData<Resource<List<TvShow>>> {
-        val resultPopularDrama = MutableLiveData<Resource<List<TvShow>>>()
+    fun getPopularDrama(): LiveData<Resource<List<Movie>>> {
+        val resultPopularDrama = MutableLiveData<Resource<List<Movie>>>()
         coroutineScope.launch {
             resultPopularDrama.value = Resource.loading(null)
             try {
-                val popularDrama = service.getPopularDramaTvShowsAsync(18, 2020).await()
+                val popularDrama = service.getPopularDramaAsync(18, 2020).await()
                 resultPopularDrama.value = Resource.success(popularDrama.data)
             } catch (e: Exception) {
                 resultPopularDrama.value = Resource.error(e.localizedMessage, null)
@@ -112,22 +112,6 @@ class RemoteDataSource(private val service: TheMoviesService) {
         return resultUpcomingMovies
     }
 
-    fun getTvShowDetail(tvShowId: Int): LiveData<Resource<TvShowDetail>> {
-        val resultTvShowDetail = MutableLiveData<Resource<TvShowDetail>>()
-        coroutineScope.launch {
-            resultTvShowDetail.value = Resource.loading(null)
-            try {
-                val tvShowDetail = service.getTvShowDetailAsync(tvShowId).await()
-                resultTvShowDetail.value = Resource.success(tvShowDetail)
-            } catch (e: Exception) {
-                resultTvShowDetail.value = Resource.error(e.localizedMessage, null)
-                Log.e("RemoteDataSource", "getTvShowDetail Error : ${e.localizedMessage}")
-            }
-        }
-
-        return resultTvShowDetail
-    }
-
     fun getMovieDetail(movieId: Int): LiveData<Resource<MovieDetail>> {
         val resultMovieDetail = MutableLiveData<Resource<MovieDetail>>()
         coroutineScope.launch {
@@ -144,22 +128,6 @@ class RemoteDataSource(private val service: TheMoviesService) {
         return resultMovieDetail
     }
 
-    fun getTvShowCaster(tvShowId: Int): LiveData<Resource<List<Cast>>> {
-        val resultTvShowCaster = MutableLiveData<Resource<List<Cast>>>()
-        coroutineScope.launch {
-            resultTvShowCaster.value = Resource.loading(null)
-            try {
-                val tvShowCaster = service.getTvShowCasterAsync(tvShowId).await()
-                resultTvShowCaster.value = Resource.success(tvShowCaster.cast)
-            } catch (e: Exception) {
-                resultTvShowCaster.value = Resource.error(e.localizedMessage, null)
-                Log.e("RemoteDataSource", "getTvShowCaster Error : ${e.localizedMessage}")
-            }
-        }
-
-        return resultTvShowCaster
-    }
-
     fun getMovieCaster(movieId: Int): LiveData<Resource<List<Cast>>> {
         val resultMovieCaster = MutableLiveData<Resource<List<Cast>>>()
         coroutineScope.launch {
@@ -174,22 +142,6 @@ class RemoteDataSource(private val service: TheMoviesService) {
         }
 
         return resultMovieCaster
-    }
-
-    fun getSimilarTvShows(tvShowId: Int): LiveData<Resource<List<TvShow>>> {
-        val resultSimilarTvShows = MutableLiveData<Resource<List<TvShow>>>()
-        coroutineScope.launch {
-            resultSimilarTvShows.value = Resource.loading(null)
-            try {
-                val similarTvShows = service.getSimilarTvShowsAsync(tvShowId).await()
-                resultSimilarTvShows.value = Resource.success(similarTvShows.data)
-            } catch (e: Exception) {
-                resultSimilarTvShows.value = Resource.error(e.localizedMessage, null)
-                Log.e("RemoteDataSource", "getSimilarTvShows Error : ${e.localizedMessage}")
-            }
-        }
-
-        return resultSimilarTvShows
     }
 
     fun getSimilarMovies(movieId: Int): LiveData<Resource<List<Movie>>> {

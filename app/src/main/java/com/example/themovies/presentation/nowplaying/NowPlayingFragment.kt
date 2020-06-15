@@ -28,7 +28,7 @@ class NowPlayingFragment : Fragment() {
     private lateinit var viewModel: NowPlayingViewModel
 
     private val nowPlayingAdapter = NowPlayingAdapter { movie ->
-        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id, MOVIE)
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id)
     }
 
     override fun onAttach(context: Context) {

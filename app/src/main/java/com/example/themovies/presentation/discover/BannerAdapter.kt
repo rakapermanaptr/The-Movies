@@ -35,7 +35,7 @@ class BannerAdapter(private val context: Context, private var popularMovies: Lis
             title.text = movie.title
 
             view.setOnClickListener {
-                NavigationUtils.navigateToDetailActivity(context, movie.id, MOVIE)
+                NavigationUtils.navigateToDetailActivity(context, movie.id)
             }
 
             container.addView(view)
