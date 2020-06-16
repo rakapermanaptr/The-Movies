@@ -63,6 +63,9 @@ interface TheMoviesService {
     @GET("account/{account_id}/favorite/movies")
     fun getFavoriteMoviesAsync(@Query("session_id") session_id: String): Deferred<BaseResponse<Movie>>
 
+    @GET("account/{account_id}/watchlist/movies")
+    fun getWatchlistMoviesAsync(@Query("session_id") sessionId: String): Deferred<BaseResponse<Movie>>
+
     @GET("movie/{movie_id}/account_states")
     fun getMovieStatesAsync(
         @Path("movie_id") movieId: Int,

@@ -36,5 +36,7 @@ interface ITheMoviesRepository {
 
     fun getFavoriteMovies(sessionId: String): LiveData<Resource<List<Movie>>>
 
+    fun getWatchlistMovies(sessionId: String): LiveData<Resource<List<Movie>>>
+
     fun getMovieState(movieId: Int, sessionId: String): LiveData<Resource<MovieStates>>
 }

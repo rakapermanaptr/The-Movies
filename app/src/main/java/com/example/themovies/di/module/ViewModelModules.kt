@@ -11,6 +11,7 @@ import com.example.themovies.presentation.login.LoginViewModel
 import com.example.themovies.presentation.nowplaying.NowPlayingViewModel
 import com.example.themovies.presentation.profile.ProfileViewModel
 import com.example.themovies.presentation.profile.favorite.FavoriteViewModel
+import com.example.themovies.presentation.profile.watchlist.WatchlistViewModel
 import com.example.themovies.presentation.upcoming.UpcomingViewModel
 import dagger.Binds
 import dagger.Module
@@ -18,6 +19,11 @@ import dagger.multibindings.IntoMap
 
 @Module
 abstract class ViewModelModules {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WatchlistViewModel::class)
+    abstract fun bindWatchlistViewModel(watchlistViewModel: WatchlistViewModel): ViewModel
 
     @Binds
     @IntoMap

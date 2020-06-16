@@ -2,13 +2,29 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.profile.watchlist.WatchlistFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_watchlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            tools:listitem="@layout/item_poster_favorite"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>
