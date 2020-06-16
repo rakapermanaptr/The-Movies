@@ -12,10 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.themovies.R
 import com.example.themovies.data.source.local.SharedPreference
 import com.example.themovies.domain.entities.Movie
-import com.example.themovies.utils.KEY_SESSION
-import com.example.themovies.utils.hide
-import com.example.themovies.utils.show
-import com.example.themovies.utils.showToast
+import com.example.themovies.utils.*
 import com.example.themovies.utils.vo.Status
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_watchlist.*
@@ -33,7 +30,7 @@ class WatchlistFragment : Fragment() {
     private lateinit var preference: SharedPreference
 
     private val watchlistMoviesAdapter = WatchlistMoviesAdapter { movie ->
-        showToast(movie.title)
+        NavigationUtils.navigateToDetailActivity(requireContext(), movie.id)
     }
 
     override fun onAttach(context: Context) {
