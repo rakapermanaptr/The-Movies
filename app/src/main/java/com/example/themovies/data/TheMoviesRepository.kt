@@ -53,6 +53,11 @@ class TheMoviesRepository @Inject constructor(private val remoteDataSource: Remo
         favorite: Favorite
     ): LiveData<Resource<FavoriteResponse>> = remoteDataSource.postFavoriteMovie(sessionId, favorite)
 
+    override fun postWatchlistMovie(
+        sessionId: String,
+        watchlist: Watchlist
+    ): LiveData<Resource<WatchlistResponse>> = remoteDataSource.postWatchlistMovie(sessionId, watchlist)
+
     override fun getFavoriteMovies(sessionId: String): LiveData<Resource<List<Movie>>> =
         remoteDataSource.getFavoriteMovies(sessionId)
 

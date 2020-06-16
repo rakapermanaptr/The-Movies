@@ -240,6 +240,22 @@ class RemoteDataSource(private val service: TheMoviesService) {
         return resultFavorite
     }
 
+    fun postWatchlistMovie(sessionId: String, watchlist: Watchlist): LiveData<Resource<WatchlistResponse>> {
+        val resultWatchlist = MutableLiveData<Resource<WatchlistResponse>>()
+        coroutineScope.launch {
+            resultWatchlist.value = Resource.loading(null)
+            try {
+                val watchlistResponse = service.postWatchlistAsync(sessionId, watchlist).await()
+                resultWatchlist.value = Resource.success(watchlistResponse)
+            } catch (e: Exception) {
+                resultWatchlist.value = Resource.error(e.localizedMessage, null)
+                Log.e("RemoteDataSource", "postWatchlistMovie Error : ${e.localizedMessage}")
+            }
+        }
+
+        return resultWatchlist
+    }
+
     fun getFavoriteMovies(sessionId: String): LiveData<Resource<List<Movie>>> {
         val resultFavoriteMovies = MutableLiveData<Resource<List<Movie>>>()
         coroutineScope.launch {

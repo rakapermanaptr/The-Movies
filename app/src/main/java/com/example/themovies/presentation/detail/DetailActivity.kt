@@ -27,6 +27,7 @@ class DetailActivity : AppCompatActivity() {
 
     private var id: Int = 0
     private var isFavorite: Boolean = false
+    private var isWatchlist: Boolean = false
 
     private val casterAdapter = CasterAdapter { cast ->
         showToast(cast.name)
@@ -125,21 +126,33 @@ class DetailActivity : AppCompatActivity() {
                     hideLoading()
 
                     isFavorite = it.data!!.favorite
+                    isWatchlist = it.data.watchlist
 
-                    setMovieStates(isFavorite)
+                    setFavoriteMovieStates(isFavorite)
+                    setWatchlistMovieStates(isWatchlist)
                 }
                 Status.ERROR -> hideLoading()
             }
         })
     }
 
-    private fun setMovieStates(isFavorite: Boolean) {
+    private fun setFavoriteMovieStates(isFavorite: Boolean) {
         if (isFavorite) {
             fab_favorite.colorNormal = ContextCompat.getColor(this, R.color.colorPrimary)
             fab_favorite.colorPressed = ContextCompat.getColor(this, R.color.colorPrimary)
         } else {
             fab_favorite.colorNormal = ContextCompat.getColor(this, R.color.colorWhite)
             fab_favorite.colorPressed = ContextCompat.getColor(this, R.color.colorWhite)
+        }
+    }
+
+    private fun setWatchlistMovieStates(isWatchlist: Boolean) {
+        if (isWatchlist) {
+            fab_watchlist.colorNormal = ContextCompat.getColor(this, R.color.colorPrimary)
+            fab_watchlist.colorPressed = ContextCompat.getColor(this, R.color.colorPrimary)
+        } else {
+            fab_watchlist.colorNormal = ContextCompat.getColor(this, R.color.colorWhite)
+            fab_watchlist.colorPressed = ContextCompat.getColor(this, R.color.colorWhite)
         }
     }
 
@@ -152,7 +165,6 @@ class DetailActivity : AppCompatActivity() {
             viewModel.isSessionActive.observe(this, Observer {
                 if (it) {
                     fab_favorite.setOnClickListener {
-
                         if (isFavorite) {
                             val favorite =
                                 Favorite(favorite = false, mediaId = id, mediaType = "movie")
@@ -167,7 +179,19 @@ class DetailActivity : AppCompatActivity() {
 
                     }
 
-                    fab_watchlist.setOnClickListener { showToast("Added to your watchlist") }
+                    fab_watchlist.setOnClickListener {
+                        if (isWatchlist) {
+                            val watchlist =
+                                Watchlist(watchlist = false, mediaId = id, mediaType = "movie")
+
+                            addOrRemoveWatchlistMovie(sessionId, watchlist)
+                        } else {
+                            val watchlist =
+                                Watchlist(watchlist = true, mediaId = id, mediaType = "movie")
+
+                            addOrRemoveWatchlistMovie(sessionId, watchlist)
+                        }
+                    }
                 } else {
                     fab_favorite.setOnClickListener { showToast("You are not login") }
 
@@ -183,6 +207,19 @@ class DetailActivity : AppCompatActivity() {
 
     private fun addOrRemoveFavoriteMovie(sessionId: String, favorite: Favorite) {
         viewModel.postFavoriteMovie(sessionId, favorite).observe(this, Observer {
+            when (it.status) {
+                Status.LOADING -> showLoading()
+                Status.SUCCESS -> {
+                    showToast(it.data!!.statusMessage)
+                    checkMovieStates(id, sessionId)
+                }
+                Status.ERROR -> hideLoading()
+            }
+        })
+    }
+
+    private fun addOrRemoveWatchlistMovie(sessionId: String, watchlist: Watchlist) {
+        viewModel.postWatchlistMovie(sessionId, watchlist).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> showLoading()
                 Status.SUCCESS -> {

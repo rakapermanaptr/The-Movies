@@ -46,6 +46,11 @@ class DetailViewModel @Inject constructor(private val repository: TheMoviesRepos
         favorite: Favorite
     ): LiveData<Resource<FavoriteResponse>> = repository.postFavoriteMovie(sessionId, favorite)
 
+    fun postWatchlistMovie(
+        sessionId: String,
+        watchlist: Watchlist
+    ): LiveData<Resource<WatchlistResponse>> = repository.postWatchlistMovie(sessionId, watchlist)
+
     fun getMovieStates(movieId: Int, sessionId: String): LiveData<Resource<MovieStates>> =
         repository.getMovieState(movieId, sessionId)
 

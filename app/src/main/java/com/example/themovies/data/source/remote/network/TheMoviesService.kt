@@ -60,6 +60,12 @@ interface TheMoviesService {
         @Body favorite: Favorite
     ): Deferred<FavoriteResponse>
 
+    @POST("account/{account_id}/watchlist")
+    fun postWatchlistAsync(
+        @Query("session_id") sessionId: String,
+        @Body watchlist: Watchlist
+    ): Deferred<WatchlistResponse>
+
     @GET("account/{account_id}/favorite/movies")
     fun getFavoriteMoviesAsync(@Query("session_id") session_id: String): Deferred<BaseResponse<Movie>>
 

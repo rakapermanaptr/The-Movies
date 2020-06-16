@@ -34,6 +34,8 @@ interface ITheMoviesRepository {
 
     fun postFavoriteMovie(sessionId: String, favorite: Favorite): LiveData<Resource<FavoriteResponse>>
 
+    fun postWatchlistMovie(sessionId: String, watchlist: Watchlist): LiveData<Resource<WatchlistResponse>>
+
     fun getFavoriteMovies(sessionId: String): LiveData<Resource<List<Movie>>>
 
     fun getWatchlistMovies(sessionId: String): LiveData<Resource<List<Movie>>>
