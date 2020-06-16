@@ -18,7 +18,6 @@ import com.example.themovies.presentation.nowplaying.NowPlayingFragment
 import com.example.themovies.presentation.profile.ProfileFragment
 import com.example.themovies.presentation.upcoming.UpcomingFragment
 import com.example.themovies.utils.KEY_SESSION
-import com.example.themovies.utils.showToast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
@@ -82,12 +81,12 @@ class MainActivity : AppCompatActivity() {
         preference = SharedPreference(this)
 
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
-        observeViewModel()
+        checkSession()
 
         bttm_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
-    private fun observeViewModel() {
+    private fun checkSession() {
         val sessionId = preference.getString(KEY_SESSION)
         sessionId?.let { viewModel.checkSession(it) }
     }
@@ -122,7 +121,8 @@ class MainActivity : AppCompatActivity() {
                 viewModel.isLoggedIn.observe(this, Observer {
                     when (it) {
                         true -> {
-                            showToast("is login")
+                            preference.saveString(KEY_SESSION, "")
+                            checkSession()
                         }
                         false -> startLoginActivity()
                     }
