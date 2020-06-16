@@ -2,7 +2,6 @@ package com.example.themovies.presentation.profile
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,7 +94,8 @@ class ProfileFragment : Fragment() {
         })
     }
     private fun showProfile(profile: Profile?) {
-        tv_username.text = profile!!.username
+        tv_first_char.text = "${firstCharOfUsername(profile!!.username)}"
+        tv_username.text = profile.username
     }
 
     private fun showLoading() {

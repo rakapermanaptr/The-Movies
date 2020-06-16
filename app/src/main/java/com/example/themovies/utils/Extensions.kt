@@ -48,3 +48,8 @@ fun Activity.hideKeyboard() {
         inputManager.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 }
+
+/* Get First Char of Username */
+fun firstCharOfUsername(username: String): Char {
+    return username.first().toUpperCase()
+}
