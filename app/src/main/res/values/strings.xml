@@ -14,4 +14,6 @@
     <string name="read_more">READ MORE</string>
     <string name="episode">Episode</string>
     <string name="duration">Duration</string>
+    <string name="login_here">Login Here</string>
+    <string name="you_haven_t_login_yet">You haven\'t login yet</string>
 </resources>

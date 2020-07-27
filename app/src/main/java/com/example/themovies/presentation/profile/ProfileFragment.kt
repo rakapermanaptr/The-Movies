@@ -1,6 +1,7 @@
 package com.example.themovies.presentation.profile
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.themovies.R
 import com.example.themovies.data.source.local.SharedPreference
 import com.example.themovies.domain.entities.*
+import com.example.themovies.presentation.login.LoginActivity
 import com.example.themovies.presentation.profile.favorite.FavoriteFragment
 import com.example.themovies.presentation.profile.watchlist.WatchlistFragment
 import com.example.themovies.utils.*
@@ -51,6 +53,8 @@ class ProfileFragment : Fragment() {
     private fun initView() {
         // setup viewpager
         setupViewPager()
+
+        btn_loginHere.setOnClickListener { startLoginActivity() }
     }
 
     private fun checkSession() {
@@ -63,12 +67,12 @@ class ProfileFragment : Fragment() {
                     true -> observeGetProfileDetail(sessionId)
                     false -> {
                         layout_profile.hide()
-                        tv_havent_login.show()
+                        layout_haventLogin.show()
                     }
                 }
             })
         } else {
-            tv_havent_login.show()
+            layout_haventLogin.show()
         }
     }
 
@@ -104,6 +108,10 @@ class ProfileFragment : Fragment() {
 
     private fun hideLoading() {
         progress_bar.hide()
+    }
+
+    private fun startLoginActivity() {
+        startActivity(Intent(requireContext(), LoginActivity::class.java))
     }
 
     override fun onCreateView(
